@@ -1,11 +1,8 @@
-# Disunited States of America
-A real time stratagy game about the Union. <br>
-#### Explores the question that absolutely no one is asking: 
-What if every state seceded from the Union at the same time? Just for funzises? <br>
+# Stellar Fortress
 
 ## Pre-Reqs
 * a modern-ish c++ compiler that supports "#pramga"
-* SFML
+* SDL or SFML
 * Lua 5.1
 * LuaBridge
 * jsoncpp
@@ -24,7 +21,7 @@ camke ../
 Then, compile and run!
 ```
 make
-./DSA
+./STELLAR
 ```
 
 ## ToDO:
