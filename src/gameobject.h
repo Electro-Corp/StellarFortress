@@ -21,7 +21,7 @@ namespace Engine {
             Rendering::Sprite* sprite;
             SDL_Rect texture_rect;
         public:
-            Scripting::Script* script;
+            Scripting::Script* script = nullptr;
             Transform::Transform transform;
 
             bool drawable;
@@ -46,7 +46,7 @@ namespace Engine {
 #endif
 
 #if USE_SDL
-            virtual void draw(SDL_Renderer* surface);
+            virtual void draw(SDL_Renderer* renderer);
 #endif
 
             // They derive!

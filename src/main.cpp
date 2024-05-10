@@ -33,13 +33,15 @@ int main(int argv, char** args){
 	Engine::Scene scene("Test");
 
 	Engine::GameObject gameObj("../assets/textures/testing/testBoat.jpeg");
+	game->loadScript(&gameObj, "../assets/scripts/testing/test.lua");
 
-	gameObj.transform.scale = Transform::Vector2(100.0, 100.0);
+	gameObj.transform.scale = Transform::Vector2(800.0, 600.0);
 	gameObj.drawable = true;
 
 	scene.addObject(&gameObj);
 
 
+	std::cout << "Entering main Render loop\n";
 	while(1){
 		game->tick(scene);
 	}

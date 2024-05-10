@@ -6,20 +6,23 @@ project(STELLAR)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# SFML (nah)
-find_package(SFML REQUIRED COMPONENTS graphics window system audio)
+
 # SDL
 find_package(SDL2 REQUIRED)
 # SDL Image
-#find_package(SDL2_image REQUIRED)
+find_package(SDL2_image REQUIRED)
+
 # LUA
-find_package(Lua51 REQUIRED)
+find_package(Lua REQUIRED)
 # JSONCPP
 find_package(jsoncpp REQUIRED)
+# SFML (nah)
+find_package(SFML REQUIRED COMPONENTS graphics window system audio)
 
 # Include directories
 include_directories(src)
 include_directories(${SFML_INCLUDE_DIR})    
+include_directories(${SDL2_INCLUDE_DIR})
 include_directories(/usr/local/include ${LUA_INCLUDE_DIR})
 include_directories(${JSONCPP_INCLUDE_DIR})
 include_directories(${SDL_INCLUDE_DIR})

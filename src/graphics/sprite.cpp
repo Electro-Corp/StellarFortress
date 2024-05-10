@@ -25,6 +25,9 @@ Rendering::Sprite::Sprite(std::string fileName){
 #endif
 #if USE_SDL
     surface = IMG_Load(fileName.c_str());
+    if(!surface){
+        std::cout << fileName.c_str() << " failed to load as a sprite.\n";
+    }
 #endif
 }
 
@@ -37,8 +40,4 @@ sf::Sprite* Rendering::Sprite::getSprite(){
 
 SDL_Surface* Rendering::Sprite::getSurface(){
     return surface;
-}
-
-SDL_Texture* Rendering::Sprite::getTexture(){
-    return texture;
 }

@@ -3,8 +3,8 @@
 #include <game.h>
 
 Game::SF::SF(){
-    Rendering::renderer = Rendering::Renderer(std::string("Stellar Fortress"), 800, 600, this);
-    this->renderer = &(Rendering::renderer);
+    //Rendering::rendererStat = Rendering::Renderer(std::string("Stellar Fortress"), 800, 600, this);
+    this->renderer = new Rendering::Renderer(std::string("Stellar Fortress"), 800, 600, this);
     scriptMan = new Scripting::ScriptManager("../assets/scripts", renderer);
 
     std::cout << "STELLAR FORTRESS\n";
@@ -41,6 +41,6 @@ void Game::SF::endGame(){
     // Confirm
     // Exit
     // Print bye bye
-    std::cout << "Exiting Nunticle. Loser.\n";
+    std::cout << "Exiting Stellar Fortress. Loser.\n";
     exit(1);
 }

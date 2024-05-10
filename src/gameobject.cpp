@@ -60,10 +60,18 @@ void Engine::GameObject::draw(sf::RenderWindow* window){
 #endif
 
 #if USE_SDL
-void Engine::GameObject::draw(SDL_Renderer* surface){
+void Engine::GameObject::draw(SDL_Renderer* renderer){
     if(drawable){
-        SDL_Texture* tex = SDL_CreateTextureFromSurface(surface, this->getSprite()->getSurface());
-        SDL_RenderCopy(surface, tex, NULL, &texture_rect); 
+        if(this->getSprite()->SD_texture == nullptr){
+            SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, this->getSprite()->getSurface());
+            if(!tex){
+                printf("Failed to create texture from surface!\n");
+                std::cout << SDL_GetError() << "\n";
+                exit(-1);
+            }
+            this->getSprite()->SD_texture = tex;
+        }
+        SDL_RenderCopy(renderer, this->getSprite()->SD_texture, NULL, &texture_rect); 
     }
 }
 #endif

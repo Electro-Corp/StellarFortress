@@ -42,12 +42,17 @@ namespace Rendering{
 #if USE_SDL
             SDL_Window* window;
             SDL_Surface* surface;
-            SDL_Renderer *renderer;
+            SDL_Renderer* renderer;
 #endif
             // Game Instance
             Game::SF* game;
         public:
+            #if USE_SFML
             float mouseX, mouseY, mouseDelta, zoom;
+            #endif
+            #if USE_SDL
+            int mouseX, mouseY, mouseDelta, zoom;
+            #endif
             bool mouseDown;
             
 
@@ -81,6 +86,6 @@ namespace Rendering{
     };
 
     // Global renderer (bad programming practice prob but whatever)
-    static Renderer renderer;
+    static Renderer rendererStat;
 }
 

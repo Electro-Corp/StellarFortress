@@ -9,7 +9,6 @@ Rendering::Renderer::Renderer(std::string title, int width, int height, Game::SF
 #endif
 #if USE_SDL
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-    surface = SDL_GetWindowSurface(window);
     renderer = SDL_CreateRenderer(window, -1, 0);
 #endif
     this->game = game;
@@ -63,20 +62,26 @@ void Rendering::Renderer::update(Engine::Scene scene){
 #if USE_SDL
     // Poll input
     SDL_Event e;
-    SDL_PollEvent(&e);
-    switch(e.type){
+      SDL_PollEvent(&e);
+      switch(e.type){
         case SDL_WINDOWEVENT:
-            switch (e.window.event) {
-                case SDL_WINDOWEVENT_CLOSE:
-                    game->endGame();
-                    break;
-            }
-            break;
-    }
+          switch (e.window.event) {
+            case SDL_WINDOWEVENT_CLOSE:
+                game->endGame();
+                break;
+
+            default:
+                break;
+          }
+          break;
+        case SDL_MOUSEMOTION:
+          SDL_GetMouseState(&this->mouseX, &this->mouseY);
+          break;
+      }
 
 
    // SDL_UpdateWindowSurface(window);
-   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+   SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
    SDL_RenderClear(renderer);
    for (Engine::GameObject* gameObj : scene.getObjs()){
         gameObj->update();
@@ -145,7 +150,7 @@ void Rendering::Renderer::changeTitle(std::string title){
 }
 
 Rendering::Renderer::~Renderer(){
-    std::cout << "Nunticle Renderer exiting\n";
+    std::cout << "Mosaic Engine Renderer exiting\n";
 }
 
 

@@ -16,12 +16,13 @@ namespace Rendering{
             sf::Sprite sprite;
         #endif
         #if USE_SDL            
-            SDL_Surface* surface;
-            SDL_Texture* texture;
+            SDL_Surface* surface = nullptr;
+            
         #endif
 
             int renderLayer;
         public:
+            SDL_Texture* SD_texture = nullptr;
             Sprite();
             Sprite(std::string fileName);
 
@@ -33,9 +34,6 @@ namespace Rendering{
         #if USE_SDL
             // Return the SDL surface
             SDL_Surface* getSurface();
-
-            // Return the SDL texture
-            SDL_Texture* getTexture();
         #endif
     };
 }
