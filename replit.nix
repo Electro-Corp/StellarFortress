@@ -11,5 +11,7 @@
 		pkgs.luabridge
 		pkgs.SDL2
 		pkgs.SDL2_image
+		pkgs.gcc
+		pkgs.SDL2_ttf
 	];
 }

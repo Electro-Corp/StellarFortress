@@ -1,17 +1,21 @@
 cmake_minimum_required(VERSION 3.12)
 
-project(STELLAR)
-
 # Compiler settings
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+
+project(STELLAR)
+
+
 
 
 # SDL
 find_package(SDL2 REQUIRED)
 # SDL Image
-find_package(SDL2_image REQUIRED)
-
+# \\ find_package(SDL2_image REQUIRED)
+find_package(SDL2_ttf REQUIRED)
 # LUA
 find_package(Lua REQUIRED)
 # JSONCPP
@@ -56,5 +60,5 @@ target_compile_options(STELLAR PUBLIC -fpermissive -g -O0)
 
 target_link_libraries(STELLAR ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} sfml-graphics sfml-audio)
 target_link_libraries(STELLAR ${LUA_LIBRARIES} ${LUA_DEPENDENCIES})
-target_link_libraries(STELLAR ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} SDL2_image)
+target_link_libraries(STELLAR ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} SDL2_image SDL2_ttf)
 TARGET_LINK_LIBRARIES(STELLAR jsoncpp_lib)

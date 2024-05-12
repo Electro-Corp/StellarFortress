@@ -2,6 +2,9 @@
 */
 #pragma once
 #include <gameobject.h>
+#include <SDL2/SDL_ttf.h>
+
+#include <rgb.h>
 
 namespace UI{
 
@@ -9,7 +12,14 @@ namespace UI{
     private:
         sf::Font font;
         sf::Text text;
+
+        TTF_Font* SD_font = NULL;
+        SDL_Texture* texture;
+
+        std::string caption;
     public:
+        RGB rgb;
+    
         Text(std::string caption);
 
         void setText(std::string caption);

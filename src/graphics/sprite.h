@@ -22,6 +22,10 @@ namespace Rendering{
 
             int renderLayer;
         public:
+            /*
+                this variable should be reset to nullptr everytime the surface is updated (eg. for anumation)
+                otherwise the older texture will be displayed
+            */
             SDL_Texture* SD_texture = nullptr;
             Sprite();
             Sprite(std::string fileName);

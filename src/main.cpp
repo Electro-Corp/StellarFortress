@@ -32,13 +32,18 @@ int main(int argv, char** args){
 
 	Engine::Scene scene("Test");
 
-	Engine::GameObject gameObj("../assets/textures/testing/testBoat.jpeg");
+	Engine::GameObject gameObj("../assets/textures/load.png");
 	game->loadScript(&gameObj, "../assets/scripts/testing/test.lua");
+
+	UI::Text testText("Hello World!");
+	testText.rgb = RGB(255);
+	game->loadScript(&testText, "../assets/scripts/testing/test.lua");
 
 	gameObj.transform.scale = Transform::Vector2(800.0, 600.0);
 	gameObj.drawable = true;
 
 	scene.addObject(&gameObj);
+	scene.addObject(&testText);
 
 
 	std::cout << "Entering main Render loop\n";
