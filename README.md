@@ -1,8 +1,9 @@
 # Stellar Fortress
-
+Rewrite of Stellar Fortress in the Mosiac Engine (from https://github.com/Electro-Corp/Disunited-States-of-America).
+The Mosiac Engine has been modified to support SDL2 Rendering for Replit. 
 ## Pre-Reqs
 * a modern-ish c++ compiler that supports "#pramga"
-* SDL or SFML
+* SDL and SFML
 * Lua 5.1
 * LuaBridge
 * jsoncpp
