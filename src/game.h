@@ -7,6 +7,11 @@
 #include <iostream>
 
 #include <scripting/scriptmanager.h>
+
+#ifdef __linux__
+#include <signal.h>
+#endif
+
 namespace Scripting{
     class ScriptManager;
 }
@@ -38,6 +43,8 @@ namespace Game{
 
         lua_State* getLuaState();
 
-        void endGame();
+        static void endGame();
+
+        static void segFault();
     };
 }

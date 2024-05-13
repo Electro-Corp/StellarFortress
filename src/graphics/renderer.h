@@ -55,6 +55,8 @@ namespace Rendering{
             #endif
             bool mouseDown;
             
+            std::vector<char> keybuffer;
+            
 
             Renderer(std::string title, int width, int height, Game::SF* game);
 

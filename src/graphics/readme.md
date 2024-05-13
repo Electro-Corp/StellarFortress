@@ -1,3 +1,6 @@
-# Nunticle Rendering Engine
-Uses SFML <br>
-maybe use sdl in future for more compatibility?
+# Mosiac Rendering Engine
+Can use SDL or SFML, just depends on what `renderer.h` is setup to do:
+```
+#define USE_SFML 0
+#define USE_SDL 1
+```

@@ -4,7 +4,7 @@ UI::Text::Text(std::string caption){
     drawable = false;
     this->caption = caption;
 #if USE_SFML
-    if(!font.loadFromFile("../assets/fonts/playball.ttf")){
+    if(!font.loadFromFile("../assets/fonts/protest.ttf")){
 
     }
     text.setFont(font);

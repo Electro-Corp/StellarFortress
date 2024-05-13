@@ -10,6 +10,8 @@ Rendering::Renderer::Renderer(std::string title, int width, int height, Game::SF
 #if USE_SDL
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, 0);
+    // Disable the cursor by default
+    SDL_ShowCursor(SDL_DISABLE);
 #endif
     this->game = game;
     zoom = 1.0f;
@@ -62,14 +64,14 @@ void Rendering::Renderer::update(Engine::Scene scene){
 #if USE_SDL
     // Poll input
     SDL_Event e;
-      SDL_PollEvent(&e);
-      switch(e.type){
+    SDL_PollEvent(&e);
+    switch(e.type){
         case SDL_WINDOWEVENT:
           switch (e.window.event) {
             case SDL_WINDOWEVENT_CLOSE:
                 game->endGame();
                 break;
-
+        
             default:
                 break;
           }
@@ -77,17 +79,23 @@ void Rendering::Renderer::update(Engine::Scene scene){
         case SDL_MOUSEMOTION:
           SDL_GetMouseState(&this->mouseX, &this->mouseY);
           break;
-      }
+        case SDL_KEYDOWN:
+            keybuffer.push_back(e.key.keysym.sym);
+            if(keybuffer.size() > 50){
+                keybuffer.clear();
+            }
+            break;
+    }
 
 
-   // SDL_UpdateWindowSurface(window);
-   SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-   SDL_RenderClear(renderer);
-   for (Engine::GameObject* gameObj : scene.getObjs()){
+    // SDL_UpdateWindowSurface(window);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);   
+    SDL_RenderClear(renderer);
+    for (Engine::GameObject* gameObj : scene.getObjs()){
         gameObj->update();
         gameObj->draw(renderer);
     }
-   SDL_RenderPresent(renderer);
+    SDL_RenderPresent(renderer);
 #endif
 }
 
@@ -132,7 +140,9 @@ Transform::Vector2 Rendering::Renderer::getWindowSize(){
     return Transform::Vector2(window->getSize().x, window->getSize().y);
 #endif
 #if USE_SDL
-    return Transform::Vector2(0, 0);
+    int w = 0, h = 0;
+    SDL_GetWindowSize(window, &w, &h);
+    return Transform::Vector2(w, h);
 #endif
 }
 
@@ -146,6 +156,9 @@ Transform::Vector2 Rendering::Renderer::getViewPos(){
 void Rendering::Renderer::changeTitle(std::string title){
 #if USE_SFML
     window->setTitle(title);
+#endif
+#if USE_SDL
+    SDL_SetWindowTitle(window, title.c_str());
 #endif
 }
 

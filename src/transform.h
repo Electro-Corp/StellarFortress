@@ -16,16 +16,15 @@ namespace Transform{
 
     class Transform{
         public:
-        Vector2 position, scale;
-        float angle;
-
-        // Empty
-        Transform();
-        // Individial Params
-        Transform(float, float, float);
-        // Nah
-        Transform(Vector2, float);
-
+            Vector2 position, scale;
+            float angle;
+    
+            // Empty
+            Transform();
+            // Individial Params
+            Transform(float, float, float);
+            // Nah
+            Transform(Vector2, float);
     };
 }
 #endif

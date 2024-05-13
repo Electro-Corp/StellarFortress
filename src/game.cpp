@@ -3,10 +3,16 @@
 #include <game.h>
 
 Game::SF::SF(){
-    //Rendering::rendererStat = Rendering::Renderer(std::string("Stellar Fortress"), 800, 600, this);
     this->renderer = new Rendering::Renderer(std::string("Stellar Fortress"), 800, 600, this);
     scriptMan = new Scripting::ScriptManager("../assets/scripts", renderer);
 
+    #ifdef __linux__
+    signal(SIGINT, endGame);
+    signal(SIGSEGV, segFault);
+    signal(SIGABRT, endGame);
+    signal(SIGKILL, endGame);
+    #endif
+    
     std::cout << "STELLAR FORTRESS\n";
 }
 
@@ -42,5 +48,10 @@ void Game::SF::endGame(){
     // Exit
     // Print bye bye
     std::cout << "Exiting Stellar Fortress. Loser.\n";
+    exit(1);
+}
+
+void Game::SF::segFault(){
+    std::cout << "Segmentation fault! Game Exited.\n";
     exit(1);
 }

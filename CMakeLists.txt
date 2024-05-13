@@ -42,10 +42,12 @@ add_executable(STELLAR
     src/transform.cpp
     src/gameobject.cpp
     src/scene.cpp
-    # nunticle  
+    # SF  
     src/game.cpp
     # graphics
     src/graphics/renderer.cpp
+    # gameobjs
+    src/gameObjects/terrain/tile.cpp
     # ui
     src/gameObjects/ui/text.cpp
     # utils

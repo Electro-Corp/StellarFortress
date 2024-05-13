@@ -62,6 +62,7 @@ void Engine::GameObject::draw(sf::RenderWindow* window){
 #if USE_SDL
 void Engine::GameObject::draw(SDL_Renderer* renderer){
     if(drawable){
+        // Massive optimization
         if(this->getSprite()->SD_texture == nullptr){
             SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, this->getSprite()->getSurface());
             if(!tex){
@@ -71,7 +72,14 @@ void Engine::GameObject::draw(SDL_Renderer* renderer){
             }
             this->getSprite()->SD_texture = tex;
         }
-        SDL_RenderCopy(renderer, this->getSprite()->SD_texture, NULL, &texture_rect); 
+        // Micro optimization (not even sure if this is even necessary)
+        if(this->transform.angle == 0) {
+            // If the angle is 0, we can just draw the texture directly
+            SDL_RenderCopy(renderer, this->getSprite()->SD_texture, NULL, &texture_rect); 
+        }else{
+            // Otherwise, we need to rotate the texture
+            SDL_RenderCopyEx(renderer, this->getSprite()->SD_texture, NULL, &texture_rect, this->transform.angle, NULL, SDL_FLIP_NONE);
+        }
     }
 }
 #endif
