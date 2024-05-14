@@ -20,6 +20,5 @@ function update(object)
 end
 
 function onKeyPressed(object, key)
-  print("Key pressed!")
-  object.transform.angle = 90
+  object.transform.angle = 360 * math.sin(count)
 end
