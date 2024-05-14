@@ -52,6 +52,8 @@ namespace Rendering{
             double delta = 0;
 
             Engine::Scene* lScene;
+
+            std::vector<luabridge::LuaRef*> keyCallBacks;
         public:
             #if USE_SFML
             float mouseX, mouseY, mouseDelta, zoom;
@@ -91,6 +93,9 @@ namespace Rendering{
             float getDelta();
 
             SDL_Renderer* getRenderer();
+
+            // Register callback
+            void addCallBackOnKeyPressed(luabridge::LuaRef* funcToCall);
 
             ~Renderer();
     };

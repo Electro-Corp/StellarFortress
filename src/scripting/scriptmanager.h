@@ -37,6 +37,7 @@ namespace Scripting{
         private:
             luabridge::LuaRef init;
             luabridge::LuaRef updateFunc;
+            luabridge::LuaRef keyPressed;
 
             Engine::GameObject* thisObj;
         public:
@@ -47,6 +48,8 @@ namespace Scripting{
             luabridge::LuaRef getUpdateFunc();
 
             void update();
+
+            void onKeyPressed(char key);
     };
 
     class ScriptManager{

@@ -62,6 +62,7 @@ void Rendering::Renderer::update(Engine::Scene scene){
     }
 #endif
 #if USE_SDL
+    char key = 0;
     // Poll input
     SDL_Event e;
     SDL_PollEvent(&e);
@@ -80,6 +81,7 @@ void Rendering::Renderer::update(Engine::Scene scene){
           SDL_GetMouseState(&this->mouseX, &this->mouseY);
           break;
         case SDL_KEYDOWN:
+            key = e.key.keysym.sym;
             keybuffer.push_back(e.key.keysym.sym);
             if(keybuffer.size() > 50){
                 keybuffer.clear();
@@ -95,6 +97,9 @@ void Rendering::Renderer::update(Engine::Scene scene){
         SDL_RenderClear(renderer);
         for (Engine::GameObject* gameObj : scene.getObjs()){
             gameObj->update();
+            if(key != 0){
+                gameObj->script->onKeyPressed(key);
+            }
             gameObj->draw(renderer);
         }
         SDL_RenderPresent(renderer);
@@ -172,6 +177,13 @@ void Rendering::Renderer::changeTitle(std::string title){
     SDL_SetWindowTitle(window, title.c_str());
 #endif
 }
+
+void Rendering::Renderer::addCallBackOnKeyPressed(luabridge::LuaRef* funcToCall){
+    if(funcToCall != nullptr){
+        keyCallBacks.push_back(funcToCall);
+    };
+}
+
 
 Rendering::Renderer::~Renderer(){
     std::cout << "Mosaic Engine Renderer exiting\n";

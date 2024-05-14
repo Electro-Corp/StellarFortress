@@ -2,10 +2,15 @@
 */
 #include <scripting/scriptmanager.h>
 
-Scripting::Script::Script(lua_State* L) : 
-    updateFunc(luabridge::getGlobal(L, "update")), 
-    init(luabridge::getGlobal(L, "init")){
-
+Scripting::Script::Script(lua_State* L){
+    updateFunc = luabridge::getGlobal(L, "update");
+    init = luabridge::getGlobal(L, "init");
+    
+    if(luabridge::getGlobal(L, "onKeyPressed").isNil()){
+        printf("[ScriptManager] A file does not have a global function 'onKeyPressed'. Assuming you didn't want a key callback.\n");
+    }else{
+        keyPressed = luabridge::getGlobal(L, "onKeyPressed");
+    }
 }   
 
 void Scripting::Script::setGameObj(Engine::GameObject* obj){
@@ -18,6 +23,12 @@ luabridge::LuaRef Scripting::Script::getUpdateFunc(){
 
 void Scripting::Script::update(){
     updateFunc(thisObj);
+}
+
+void Scripting::Script::onKeyPressed(char key){
+    if(!keyPressed.isNil()){
+        keyPressed(thisObj, key);
+    }
 }
 
 Scripting::ScriptManager::ScriptManager(){
@@ -51,6 +62,7 @@ void Scripting::ScriptManager::loadScriptForObject(Engine::GameObject* object, s
 
         updateFuncs.push_back(luabridge::getGlobal(m_luaState, "update"));
         initFuncs.push_back(luabridge::getGlobal(m_luaState, "init"));
+        
     //}
 }
 

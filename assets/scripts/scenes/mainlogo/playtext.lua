@@ -7,9 +7,10 @@ function lerp(a, b, t)
 end
 
 
-
+local myObject
 count = 0
 function update(object)
+  myObject = object
   object.transform.scale.x = 350
   object.transform.scale.y = 45
   object.transform.position.x = (Graphics:getWindowSize().x / 2) - (object.transform.scale.x / 2)
@@ -18,4 +19,9 @@ function update(object)
   if count > 1000 then
     count = 0
   end
+end
+
+function onKeyPressed(key)
+  print("Key pressed!")
+  object.transform.rotation = 10
 end
