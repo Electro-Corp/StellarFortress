@@ -50,7 +50,7 @@ int main(int argv, char** args){
 	logoPt1.transform.position = Transform::Vector2(-800.0, 800.0);
 	logoPt2.transform.position = Transform::Vector2(-800.0, -500.0);
 
-	UI::Text playText("Press any key to continue...");
+	UI::Text playText("Press any key to begin...");
 	game->loadScript(&playText, "../assets/scripts/scenes/mainlogo/playtext.lua");
 	playText.rgb = RGB(255);
 	playText.transform.scale = Transform::Vector2(500.0, 50.0);
@@ -62,24 +62,6 @@ int main(int argv, char** args){
 	mainMenu.addObject(&logoPt2);
 	mainMenu.addObject(&playText);
 	mainMenu.addObject(&cursor);
-
-	
-	
-	Engine::Scene scene("Test");
-
-	Engine::GameObject gameObj("../assets/textures/load.png");
-	game->loadScript(&gameObj, "../assets/scripts/testing/test.lua");
-
-	UI::Text testText("Hello World!");
-	testText.rgb = RGB(255);
-	testText.transform.scale = Transform::Vector2(100.0, 100.0);
-
-	gameObj.transform.scale = Transform::Vector2(800.0, 600.0);
-	gameObj.drawable = true;
-
-	scene.addObject(&gameObj);
-	scene.addObject(&testText);
-
 
 	std::cout << "Entering main Render loop\n";
 	while(1){

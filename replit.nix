@@ -1,5 +1,6 @@
 { pkgs }: {
 	deps = [
+   pkgs.xterm
 		pkgs.gdb
 		pkgs.p7zip
 		pkgs.wget

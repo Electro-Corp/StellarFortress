@@ -16,5 +16,12 @@ function update(object)
     object.transform.position.x =  (Graphics:getWindowSize().x / 2) - (object.transform.scale.x / 2) --lerp(object.transform.position.x, (Graphics:getWindowSize().x / 2) - (object.transform.scale.x / 2), count)
     object.transform.position.y =  lerp(object.transform.position.y, targetY, count) --Graphics:getWindowSize().y / 3
     count = count + 0.001
+else
+  object.transform.position.x = ((Graphics:getWindowSize().x / 2) - (object.transform.scale.x / 2)) + (math.cos(count) * 10)
+  count = count + 0.01
+  --object.transform.position.y = targetY + (object.transform.scale.y / 1.5 + math.cos(count)
+end
+  if count > 100000 then
+    count = 0
   end
 end

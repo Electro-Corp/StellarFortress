@@ -14,7 +14,7 @@ UI::Text::Text(std::string caption){
 #if USE_SDL
     TTF_Init();
     // Load fonts
-    SD_font = TTF_OpenFont("../assets/fonts/protest.ttf", 24);
+    SD_font = TTF_OpenFont("../assets/fonts/protest.ttf", 80);
     if(!SD_font){
         printf("Error loading default font! %s\n", TTF_GetError());
         exit(-1);
