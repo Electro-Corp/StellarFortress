@@ -41,6 +41,8 @@ namespace Game{
 
         float getTime();
 
+        float getDelta();
+
         lua_State* getLuaState();
 
         

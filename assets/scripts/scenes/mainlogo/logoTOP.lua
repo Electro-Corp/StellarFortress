@@ -19,9 +19,10 @@ function update(object)
 else
   object.transform.position.x = ((Graphics:getWindowSize().x / 2) - (object.transform.scale.x / 2)) + (math.cos(count) * 10)
   count = count + 0.01
-  --object.transform.position.y = targetY + (object.transform.scale.y / 1.5 + math.cos(count)
-end
-  if count > 100000 then
+  if count > 1000 then
     count = 0
   end
+  --object.transform.position.y = targetY + (object.transform.scale.y / 1.5 + math.cos(count)
+end
+  
 end

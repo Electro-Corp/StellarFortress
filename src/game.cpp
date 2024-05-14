@@ -35,6 +35,10 @@ float Game::SF::getTime(){
     return this->renderer->getDeltaTime();
 }
 
+float Game::SF::getDelta(){
+    return this->renderer->getDelta();
+}
+
 void Game::SF::changeWindowTitle(std::string title){
     this->renderer->changeTitle(title);
 }

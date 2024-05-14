@@ -56,16 +56,29 @@ int main(int argv, char** args){
 	playText.transform.scale = Transform::Vector2(500.0, 50.0);
 	playText.transform.position = Transform::Vector2(135.0, 500);
 
+	UI::Text fpsText("FPS");
+	fpsText.rgb = RGB(255);
+	fpsText.transform.scale = Transform::Vector2(200.0, 20.0);
+	fpsText.transform.position = Transform::Vector2(0, 0);
+
 	// Add them in render order
 	mainMenu.addObject(&menuBG);
 	mainMenu.addObject(&logoPt1);
 	mainMenu.addObject(&logoPt2);
 	mainMenu.addObject(&playText);
 	mainMenu.addObject(&cursor);
+	mainMenu.addObject(&fpsText);
 
 	std::cout << "Entering main Render loop\n";
+
+	
+	
 	while(1){
+		fpsText.setText("FPS: " + std::to_string(1000 / game->getDelta()));
 		game->tick(mainMenu);
+	
+
+		
 	}
 	return 0;
 }

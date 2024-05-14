@@ -87,15 +87,22 @@ void Rendering::Renderer::update(Engine::Scene scene){
             break;
     }
 
-
-    // SDL_UpdateWindowSurface(window);
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);   
-    SDL_RenderClear(renderer);
-    for (Engine::GameObject* gameObj : scene.getObjs()){
-        gameObj->update();
-        gameObj->draw(renderer);
+    a = getDeltaTime();
+    delta += a - b;
+    if (delta > 1000/30.0)
+    {
+        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);   
+        SDL_RenderClear(renderer);
+        for (Engine::GameObject* gameObj : scene.getObjs()){
+            gameObj->update();
+            gameObj->draw(renderer);
+        }
+        SDL_RenderPresent(renderer);
+        delta = 0;
     }
-    SDL_RenderPresent(renderer);
+    b = getDeltaTime();
+    // SDL_UpdateWindowSurface(window);
+    
 #endif
 }
 
@@ -105,9 +112,13 @@ float Rendering::Renderer::getDeltaTime(){
     time = clock.getElapsedTime().asSeconds();
 #endif
 #if USE_SDL
-
+    time = SDL_GetTicks();
 #endif
     return time;
+}
+
+float Rendering::Renderer::getDelta(){
+    return delta;
 }
 
 void Rendering::Renderer::moveView(float x, float y){

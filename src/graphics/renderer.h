@@ -46,6 +46,10 @@ namespace Rendering{
 #endif
             // Game Instance
             Game::SF* game;
+
+            unsigned int a = 0;
+            unsigned int b = 0;
+            double delta = 0;
         public:
             #if USE_SFML
             float mouseX, mouseY, mouseDelta, zoom;
@@ -81,6 +85,8 @@ namespace Rendering{
 
 
             float getDeltaTime();
+
+            float getDelta();
 
             SDL_Renderer* getRenderer();
 
