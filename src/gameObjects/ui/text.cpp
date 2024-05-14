@@ -74,6 +74,12 @@ void UI::Text::draw(SDL_Renderer* render){
     SDL_Surface* surface = TTF_RenderText_Solid(SD_font, this->caption.c_str(), {rgb.r, rgb.g, rgb.b, rgb.a});
     texture = SDL_CreateTextureFromSurface(render, surface);
     SDL_FreeSurface(surface);
-    SDL_RenderCopy(render, texture, NULL, &texture_rect);
+    if(this->transform.angle == 0) {
+        // If the angle is 0, we can just draw the texture directly
+        SDL_RenderCopy(render, texture, NULL, &texture_rect); 
+    }else{
+        // Otherwise, we need to rotate the texture
+        SDL_RenderCopyEx(render, texture, NULL, &texture_rect, this->transform.angle, NULL, SDL_FLIP_NONE);
+    }
 }
 #endif

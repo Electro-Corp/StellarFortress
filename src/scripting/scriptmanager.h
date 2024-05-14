@@ -35,9 +35,11 @@ namespace Game{
 namespace Scripting{
     class Script{
         private:
-            luabridge::LuaRef init;
-            luabridge::LuaRef updateFunc;
-            luabridge::LuaRef keyPressed;
+            luabridge::LuaRef init = nullptr;
+            luabridge::LuaRef updateFunc = nullptr;
+            luabridge::LuaRef keyPressed = nullptr;
+
+            int keyCallBackReg = 0;
 
             Engine::GameObject* thisObj;
         public:

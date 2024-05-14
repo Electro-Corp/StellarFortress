@@ -62,7 +62,7 @@ void Rendering::Renderer::update(Engine::Scene scene){
     }
 #endif
 #if USE_SDL
-    char key = 0;
+    char key = NULL;
     // Poll input
     SDL_Event e;
     SDL_PollEvent(&e);
@@ -82,6 +82,12 @@ void Rendering::Renderer::update(Engine::Scene scene){
           break;
         case SDL_KEYDOWN:
             key = e.key.keysym.sym;
+            for (Engine::GameObject* gameObj : scene.getObjs()){
+                if(gameObj->script){
+                    gameObj->update();
+                    gameObj->script->onKeyPressed(key);
+                }
+            }
             keybuffer.push_back(e.key.keysym.sym);
             if(keybuffer.size() > 50){
                 keybuffer.clear();
@@ -96,14 +102,14 @@ void Rendering::Renderer::update(Engine::Scene scene){
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);   
         SDL_RenderClear(renderer);
         for (Engine::GameObject* gameObj : scene.getObjs()){
-            gameObj->update();
-            if(key != 0){
-                gameObj->script->onKeyPressed(key);
-            }
+            if(!key)
+                gameObj->update();
             gameObj->draw(renderer);
         }
         SDL_RenderPresent(renderer);
         delta = 0;
+    }else{
+        
     }
     b = getDeltaTime();
     // SDL_UpdateWindowSurface(window);
