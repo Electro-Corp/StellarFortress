@@ -65,20 +65,21 @@ int main(int argv, char** args){
 	mainMenu.addObject(&menuBG);
 	mainMenu.addObject(&logoPt1);
 	mainMenu.addObject(&logoPt2);
-	mainMenu.addObject(&playText);
-	mainMenu.addObject(&cursor);
+	mainMenu.addObject(&playText);	
 	mainMenu.addObject(&fpsText);
+
+	// always render last
+	mainMenu.addObject(&cursor);
 
 	std::cout << "Entering main Render loop\n";
 
 	
-	
+	int fps;
 	while(1){
-		fpsText.setText("FPS: " + std::to_string(1000 / game->getDelta()));
+		fps = (int)(1000 / game->getDelta());
+		fpsText.setText("FPS: " + std::to_string(fps) + " [LOCKED]");
 		game->tick(mainMenu);
-	
 
-		
 	}
 	return 0;
 }

@@ -45,7 +45,6 @@ namespace Game{
 
         lua_State* getLuaState();
 
-        
     
         static void endGame();
 

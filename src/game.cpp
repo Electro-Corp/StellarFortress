@@ -47,15 +47,18 @@ lua_State* Game::SF::getLuaState(){
     return scriptMan->getLuaState();
 }
 
+
 void Game::SF::endGame(){
     // Confirm
     // Exit
     // Print bye bye
+    std::cout << "Cleaning up..\n";
+    // clean up
     std::cout << "Exiting Stellar Fortress. Loser.\n";
     exit(1);
 }
 
 void Game::SF::segFault(){
     std::cout << "Segmentation fault! Game Exited.\n";
-    exit(1);
+    endGame();
 }
