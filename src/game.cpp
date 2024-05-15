@@ -47,6 +47,15 @@ lua_State* Game::SF::getLuaState(){
     return scriptMan->getLuaState();
 }
 
+void Game::SF::mainMenuLoop(){
+    tick(*mainMenu);
+}
+
+void Game::SF::tick(){
+    // TODO: SWITCH STATMENT
+    this->renderer->update(*mainMenu);
+}
+
 
 void Game::SF::endGame(){
     // Confirm

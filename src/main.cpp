@@ -20,9 +20,9 @@ namespace fs = std::filesystem;
 
 bool renderLoad = false;
 
-void renderScreen(Game::SF* dsa, Engine::Scene* scene){
-	while(renderLoad){
-		dsa->tick(*scene);
+void tickThread(Game::SF* dsa){
+	while(1){
+		dsa->tick();
 	}
 }
 
@@ -70,8 +70,10 @@ int main(int argv, char** args){
 
 	// always render last
 	mainMenu.addObject(&cursor);
-
+	
 	std::cout << "Entering main Render loop\n";
+
+	game->mainMenu = std::unique_ptr<Engine::Scene>(&mainMenu);
 
 	
 	int fps;
@@ -79,7 +81,10 @@ int main(int argv, char** args){
 		fps = (int)(1000 / game->getDelta());
 		fpsText.setText("FPS: " + std::to_string(fps) + " [LOCKED]");
 		game->tick(mainMenu);
-
 	}
+	/*std::thread t1(&(tickThread), game);
+
+	t1.join();*/
+	
 	return 0;
 }

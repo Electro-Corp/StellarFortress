@@ -26,28 +26,40 @@ namespace Game{
     // Nunticle
     class SF{
         private:
-        Scripting::ScriptManager* scriptMan;
-        Rendering::Renderer* renderer;
+            Scripting::ScriptManager* scriptMan;
+            Rendering::Renderer* renderer;
         public:
-        SF();
+            /********
+                SCENE LIST
+            ********/
+            std::unique_ptr<Engine::Scene> mainMenu;
 
-        void loadScript(Engine::GameObject* object, std::string path);
-
-        void tick(Engine::Scene);
-
-        void changeWindowTitle(std::string);
-
-        void initScripts();
-
-        float getTime();
-
-        float getDelta();
-
-        lua_State* getLuaState();
-
+            // End Scene List
+            
+            SF();
     
-        static void endGame();
+            void loadScript(Engine::GameObject* object, std::string path);
+    
+            void tick(Engine::Scene);
 
-        static void segFault();
+            void tick();
+    
+            void changeWindowTitle(std::string);
+    
+            void initScripts();
+    
+            float getTime();
+    
+            float getDelta();
+    
+            lua_State* getLuaState();
+    
+
+            void mainMenuLoop();
+        
+        
+            static void endGame();
+    
+            static void segFault();
     };
 }
