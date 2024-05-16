@@ -48,6 +48,8 @@ add_executable(STELLAR
     src/graphics/renderer.cpp
     # gameobjs
     src/gameObjects/terrain/tile.cpp
+    # map
+    src/map/map.cpp
     # ui
     src/gameObjects/ui/text.cpp
     # utils

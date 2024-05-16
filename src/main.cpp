@@ -13,6 +13,7 @@
 #include <game.h>
 
 #include <gameObjects/ui/text.h>
+#include <map/map.h>
 
 #include <thread>
 
@@ -75,12 +76,23 @@ int main(int argv, char** args){
 
 	game->mainMenu = std::unique_ptr<Engine::Scene>(&mainMenu);
 
+	// Map test scene
+	Engine::Scene map("Map");
+
+	Map::Map map1(7, 7);
+
+	map.addObject(&map1);
+
+	map.addObject(&fpsText);
+	
+	map.addObject(&cursor);
+
 	
 	int fps;
 	while(1){
 		fps = (int)(1000 / game->getDelta());
 		fpsText.setText("FPS: " + std::to_string(fps) + " [LOCKED]");
-		game->tick(mainMenu);
+		game->tick(map);
 	}
 	/*std::thread t1(&(tickThread), game);
 

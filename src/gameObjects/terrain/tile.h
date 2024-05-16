@@ -13,7 +13,7 @@ namespace Game{
       public:
           RGB rgb;
 
-          Tile();
+          Tile(RGB color);
 
           void update() override;
 
