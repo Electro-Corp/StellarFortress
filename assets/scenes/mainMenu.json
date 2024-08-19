@@ -1,14 +1,18 @@
 {
   "name": "Main Menu",
   "objects" : [
+    "MENU_BG" : {
+  
+    },
+    "LOGO1" : {
+
+    },
+    "LOGO2" : {
+
+    },
     "CURSOR": {
       
     },
-    "LOGO1" : {
-      
-    },
-    "LOGO2" : {
-      
-    }
+   
   ]
 }

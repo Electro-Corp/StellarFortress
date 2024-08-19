@@ -38,12 +38,14 @@ Scripting::ScriptManager::ScriptManager(){
     
 }
 
-Scripting::ScriptManager::ScriptManager(std::string p_scriptPath, Rendering::Renderer* renderer) {   
+Scripting::ScriptManager::ScriptManager(std::string p_scriptPath, Rendering::Renderer* renderer, Game::SF* game) {   
     // Create Lua state             
     m_luaState = luaL_newstate();
     luaL_openlibs(m_luaState);
 
     m_renderManGlob = std::unique_ptr<Rendering::Renderer>(renderer);
+    m_gameGlob = std::unique_ptr<Game::SF>(game);
+
     
     exposeGame();
 }
@@ -113,7 +115,15 @@ void Scripting::ScriptManager::exposeGame(){
         .addFunction("rotateView", &Rendering::Renderer::rotateView)
         .endClass();
 
+    
+    luabridge::getGlobalNamespace(m_luaState)
+        .beginClass<Game::SF>("Game")
+        .addConstructor<void(*) ()>()
+        .addFunction("setTickNum", &Game::SF::setTickNum)
+        .endClass();
+
     luabridge::setGlobal(m_luaState, m_renderManGlob.get(), "Graphics");
+    luabridge::setGlobal(m_luaState, m_gameGlob.get(), "Game");
 }
 
 lua_State* Scripting::ScriptManager::getLuaState(){

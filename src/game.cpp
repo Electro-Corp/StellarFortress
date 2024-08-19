@@ -4,7 +4,7 @@
 
 Game::SF::SF(){
     this->renderer = new Rendering::Renderer(std::string("Stellar Fortress"), 800, 600, this);
-    scriptMan = new Scripting::ScriptManager("../assets/scripts", renderer);
+    scriptMan = new Scripting::ScriptManager("../assets/scripts", renderer, this);
 
     #ifdef __linux__
     signal(SIGINT, endGame);
@@ -53,7 +53,12 @@ void Game::SF::mainMenuLoop(){
 
 void Game::SF::tick(){
     // TODO: SWITCH STATMENT
-    this->renderer->update(*mainMenu);
+    //this->renderer->update(*mainMenu);
+    this->renderer->update(*(scenes[tickNum]));
+}
+
+void Game::SF::setTickNum(int num){
+    this->tickNum = num;
 }
 
 

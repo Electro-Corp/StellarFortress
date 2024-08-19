@@ -87,12 +87,16 @@ int main(int argv, char** args){
 	
 	map.addObject(&cursor);
 
+	game->scenes.push_back(std::unique_ptr<Engine::Scene>(&mainMenu));
+	game->scenes.push_back(std::unique_ptr<Engine::Scene>(&map));
+
+	game->setTickNum(0);
 	
 	int fps;
 	while(1){
 		fps = (int)(1000 / game->getDelta());
 		fpsText.setText("FPS: " + std::to_string(fps) + " [LOCKED]");
-		game->tick(map);
+		game->tick();
 	}
 	/*std::thread t1(&(tickThread), game);
 

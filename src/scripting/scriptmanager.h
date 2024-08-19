@@ -62,9 +62,11 @@ namespace Scripting{
             std::vector<luabridge::LuaRef> updateFuncs;
 
             std::unique_ptr<Rendering::Renderer> m_renderManGlob;
+            std::unique_ptr<Game::SF> m_gameGlob;
+
         public:
             ScriptManager();
-            ScriptManager(std::string p_scriptPath, Rendering::Renderer* renderer);
+            ScriptManager(std::string p_scriptPath, Rendering::Renderer* renderer, Game::SF* sf);
 
             void loadScriptForObject(Engine::GameObject* object, std::string path);
 

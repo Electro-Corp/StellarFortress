@@ -28,11 +28,15 @@ namespace Game{
         private:
             Scripting::ScriptManager* scriptMan;
             Rendering::Renderer* renderer;
+
+            int tickNum;
         public:
             /********
                 SCENE LIST
             ********/
             std::unique_ptr<Engine::Scene> mainMenu;
+
+            std::vector<std::unique_ptr<Engine::Scene>> scenes;
 
             // End Scene List
             
@@ -43,6 +47,8 @@ namespace Game{
             void tick(Engine::Scene);
 
             void tick();
+
+            void tick(int num);
     
             void changeWindowTitle(std::string);
     
@@ -56,7 +62,8 @@ namespace Game{
     
 
             void mainMenuLoop();
-        
+
+            void setTickNum(int num);
         
             static void endGame();
     
