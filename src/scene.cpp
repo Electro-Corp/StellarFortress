@@ -12,7 +12,7 @@ std::unique_ptr<Engine::GameObject> createInstance(const std::string& className,
             return std::make_unique<Engine::GameObject>(args[0]);
         };
         factoryMap["UI::Text"] = [](const std::vector<std::string>& args) {
-            return std::make_unique<UI::Text>(args[0], args[1]);
+            return std::make_unique<UI::Text>(args[0], std::stoi(args[1]));
         };
     }
 
