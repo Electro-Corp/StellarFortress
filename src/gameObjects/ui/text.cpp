@@ -22,6 +22,30 @@ UI::Text::Text(std::string caption){
 #endif
 }
 
+UI::Text::Text(std::string caption, int rgb){
+    this->rgb = RGB(rgb);
+    drawable = false;
+    this->caption = caption;
+    #if USE_SFML
+        if(!font.loadFromFile("../assets/fonts/protest.ttf")){
+        
+        }
+        text.setFont(font);
+        text.setString(caption);
+        text.setFillColor(sf::Color::White);
+    #endif
+    #if USE_SDL
+        TTF_Init();
+        // Load fonts
+        SD_font = TTF_OpenFont("../assets/fonts/protest.ttf", 80);
+        if(!SD_font){
+            printf("Error loading default font! %s\n", TTF_GetError());
+            exit(-1);
+        }
+    #endif
+}
+
+
 void UI::Text::setText(std::string caption){
     this->caption = caption;
 #if USE_SFML

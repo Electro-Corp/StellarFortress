@@ -3,6 +3,10 @@
 */
 #pragma once
 #include <transform.h>
+/*#include <SFML/Graphics.hpp>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+*/
 #include <graphics/sprite.h>
 namespace Rendering{
     class Sprite;
@@ -53,3 +57,5 @@ namespace Engine {
             virtual void update(); 
     };
 }
+
+

@@ -1,13 +1,21 @@
 /*
     A scene
 
-    in the future use Boost::Serilization 
 */
 #pragma once
 #include <vector>
+
+
+#include <utils/jsonReader.h>
+#include <game.h>
 #include <gameobject.h>
+
+
+namespace Game{
+    class SF;
+}
+
 namespace Engine{
-    class GameObject;
 
     class Scene{
         private:    
@@ -17,6 +25,8 @@ namespace Engine{
         public:
             Scene(std::string name);
 
+            Scene(std::string name, std::string sceneJson, Game::SF* game);
+
             // Add object into current scene
             void addObject(Engine::GameObject* object);
 
@@ -24,3 +34,9 @@ namespace Engine{
             std::vector<Engine::GameObject*> getObjs();
     };
 }
+
+// namespace UI{
+//     class Text : public Engine::GameObject {
+    
+//     };
+// }

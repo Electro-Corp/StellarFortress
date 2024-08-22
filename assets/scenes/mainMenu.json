@@ -1,18 +1,41 @@
 {
   "name": "Main Menu",
-  "objects" : [
-    "MENU_BG" : {
-  
+  "objects" : {
+    "D_PLAYTEXT" : {
+      "obj" : "UI::Text",
+      "args" : ["Press any key to begin...", 255],
+      "script" : "../assets/scripts/scenes/mainlogo/playtext.lua",
+      "transform" : {
+        "position" : [500.0, 50.0],
+        "scale" : [135.0, 500.0]
+      }
     },
-    "LOGO1" : {
-
+    "C_TOPTEXT" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/menu/STELLAR.png"],
+      "script" : "../assets/scripts/scenes/mainlogo/logoTOP.lua",
+      "transform" : {
+        "position" : [-800.0, 800.0],
+        "scale" : [1, 1]
+      }
     },
-    "LOGO2" : {
-
+    "B_BOTTEXT" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/menu/FORTRESS.png"],
+      "script" : "../assets/scripts/scenes/mainlogo/logoBOT.lua",
+      "transform" : {
+        "position" : [-800.0, -500.0],
+        "scale" : [1, 1]
+      }
     },
-    "CURSOR": {
-      
+    "A_MENU_BG" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/menu/space.png"],
+      "script" : "NONE",
+      "transform" : {
+        "position" : [0, 0],
+        "scale" : [800.0, 600.0]
+      }
     },
-   
-  ]
+  }
 }

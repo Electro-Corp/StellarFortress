@@ -7,6 +7,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <graphics/renderer.h>
+#include <transform.h>
 
 namespace Rendering{
     class Sprite{

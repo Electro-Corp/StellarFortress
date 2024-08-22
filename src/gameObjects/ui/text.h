@@ -1,10 +1,10 @@
 /*
 */
 #pragma once
-#include <gameobject.h>
 #include <SDL2/SDL_ttf.h>
 
 #include <rgb.h>
+#include <gameobject.h>
 
 namespace UI{
 
@@ -21,6 +21,7 @@ namespace UI{
         RGB rgb;
     
         Text(std::string caption);
+        Text(std::string caption, int rgb);
 
         void setText(std::string caption);
         void setSize(int size);

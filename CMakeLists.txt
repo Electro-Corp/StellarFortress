@@ -41,7 +41,6 @@ add_executable(STELLAR
     # engine
     src/transform.cpp
     src/gameobject.cpp
-    src/scene.cpp
     # SF  
     src/game.cpp
     # graphics
@@ -54,6 +53,8 @@ add_executable(STELLAR
     src/gameObjects/ui/text.cpp
     # utils
     src/utils/jsonReader.cpp
+    #
+    src/scene.cpp
     # main
     src/main.cpp
 )
