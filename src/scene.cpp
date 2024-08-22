@@ -3,6 +3,8 @@
 #include <scene.h>
 
 #include <gameObjects/ui/text.h>
+#include <map/map.h>
+
 
 std::unique_ptr<Engine::GameObject> createInstance(const std::string& className, const std::vector<std::string>& args) {
     static std::unordered_map<std::string, std::function<std::unique_ptr<Engine::GameObject>(const std::vector<std::string>&)>> factoryMap;
@@ -13,6 +15,9 @@ std::unique_ptr<Engine::GameObject> createInstance(const std::string& className,
         };
         factoryMap["UI::Text"] = [](const std::vector<std::string>& args) {
             return std::make_unique<UI::Text>(args[0], std::stoi(args[1]));
+        };
+        factoryMap["Map::Map"] = [](const std::vector<std::string>& args){
+            return std::make_unique<Map::Map>(std::stoi(args[0]), std::stoi(args[1]));
         };
     }
 
@@ -44,17 +49,17 @@ Engine::Scene::Scene(std::string name, std::string sceneJson, Game::SF* game){
         }
         
         std::string script = objs["script"].asString();
-        float xPos = objs["transform"]["position"][0].asFloat();
-        float yPos = objs["transform"]["position"][1].asFloat();
-        float xScale = objs["transform"]["scale"][0].asFloat();
-        float yScale = objs["transform"]["scale"][0].asFloat();
-
-        
         std::unique_ptr<Engine::GameObject> obj = createInstance(objs["obj"].asString(), argList);
-        //Engine::GameObject* tmp = /*createInstance(objs["obj"].asString(), argList);*/ dynamic_cast<Engine::GameObject*>(obj.release());
-    
-        obj->transform.position = Transform::Vector2(xPos, yPos);
-        obj->transform.scale = Transform::Vector2(xScale, yScale);
+
+        if(objs["transform"]){
+            float xPos = objs["transform"]["position"][0].asFloat();
+            float yPos = objs["transform"]["position"][1].asFloat();
+            float xScale = objs["transform"]["scale"][0].asFloat();
+            float yScale = objs["transform"]["scale"][0].asFloat();
+
+            obj->transform.position = Transform::Vector2(xPos, yPos);
+            obj->transform.scale = Transform::Vector2(xScale, yScale);
+        }
         
         if(script != "NONE"){
             game->loadScript(obj.get(), script);

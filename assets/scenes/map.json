@@ -1,0 +1,15 @@
+{
+  "name" : "Test Map",
+  "objects" : {
+    "F_CURSOR" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/menu/cursor.png"],
+      "script" : "../assets/scripts/scenes/mainlogo/cursor.lua"
+    },
+    "A_MAP" : {
+      "obj" : "Map::Map",
+      "args" : [7, 7],
+      "script" : "NONE"
+    }
+  }
+}

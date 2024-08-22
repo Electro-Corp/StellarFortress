@@ -1,6 +1,11 @@
 {
   "name": "Main Menu",
   "objects" : {
+    "F_CURSOR" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/menu/cursor.png"],
+      "script" : "../assets/scripts/scenes/mainlogo/cursor.lua"
+    },
     "D_PLAYTEXT" : {
       "obj" : "UI::Text",
       "args" : ["Press any key to begin...", 255],
