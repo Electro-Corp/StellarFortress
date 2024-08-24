@@ -57,6 +57,11 @@ namespace Scripting{
                 updateFunc((T*)thisObj);
             }
 
+            template <typename T>
+            void initfunc(T* cast){
+                init((T*)thisObj);
+            }
+
             void onKeyPressed(char key);
     };
 

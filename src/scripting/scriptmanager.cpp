@@ -3,6 +3,7 @@
 #include <scripting/scriptmanager.h>
 
 #include <gameObjects/ui/text.h>
+#include <gameObjects/ui/inputpanel.h>
 
 Scripting::Script::Script(lua_State* L, std::string path){
     std::cout << "Loading funcs in \"" << path << "\"\n";
@@ -33,7 +34,7 @@ Scripting::Script::Script(lua_State* L, std::string path){
 
 void Scripting::Script::setGameObj(Engine::GameObject* obj){
     this->thisObj = obj;
-    init(obj);
+    
 }
 
 luabridge::LuaRef Scripting::Script::getUpdateFunc(){
@@ -86,6 +87,15 @@ void Scripting::ScriptManager::loadScriptForObject(Engine::GameObject* object, s
 
     int scriptLoadStatus = luaL_dofile(tmp, path.c_str());
 
+
+    
+    if (scriptLoadStatus != 0) {
+        std::cout << "[ScriptManager] Lua script load error in file \"" << path << "\" for object " << object << std::endl;
+        std::cout << lua_tostring(tmp, -1) << std::endl;
+        lua_pop(tmp, 1);
+    }
+
+    
     object->script = new Script(tmp, path);
     object->script->setGameObj(object);
     
@@ -131,7 +141,16 @@ void Scripting::ScriptManager::exposeGame(lua_State* state){
         .addConstructor<void(*) (std::string)>()
         // .addProperty("transform", &UI::Text::transform)
         .addProperty("text", &UI::Text::caption)
+        .endClass()
+        .deriveClass<UI::Panel, Engine::GameObject>("Panel")
+        // .addConstructor<void(*) ()>()
+        .addConstructor<void(*) (std::string, int)>()
+        // .addProperty("transform", &UI::Text::transform)
+        .addProperty("question", &UI::Panel::question)
+        .addProperty("input", &UI::Panel::input)
+        .addProperty("rgb", &UI::Panel::rgb)
         .endClass();
+        
 
 
    

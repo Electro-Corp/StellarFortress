@@ -42,7 +42,9 @@ namespace Engine {
             // Return the sprite
             Rendering::Sprite* getSprite();
 
+            virtual void initScript();
             virtual void updateScript();
+            
             void updateTransform();
             void setTex(std::string);
 

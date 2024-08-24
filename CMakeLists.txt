@@ -51,6 +51,7 @@ add_executable(STELLAR
     src/map/map.cpp
     # ui
     src/gameObjects/ui/text.cpp
+    src/gameObjects/ui/inputpanel.cpp
     # utils
     src/utils/jsonReader.cpp
     #

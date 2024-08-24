@@ -90,6 +90,12 @@ void Engine::GameObject::updateScript(){
     }
 }
 
+void Engine::GameObject::initScript(){
+    if(this->script){
+        this->script->initfunc(this);
+    }
+}
+
 float Engine::GameObject::getRotation(){
     return transform.angle;
 }

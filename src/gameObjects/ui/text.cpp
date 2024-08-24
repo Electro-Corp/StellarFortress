@@ -45,6 +45,11 @@ UI::Text::Text(std::string caption, int rgb){
     #endif
 }
 
+void UI::Text::initScript(){
+    if(this->script){
+        this->script->initfunc(this);
+    };
+}
 
 void UI::Text::setText(std::string caption){
     this->caption = caption;

@@ -3,6 +3,7 @@
 #include <scene.h>
 
 #include <gameObjects/ui/text.h>
+#include <gameObjects/ui/inputpanel.h>
 #include <map/map.h>
 
 /*
@@ -19,9 +20,13 @@ std::unique_ptr<Engine::GameObject> createInstance(const std::string& className,
         factoryMap["UI::Text"] = [](const std::vector<std::string>& args) {
             return std::make_unique<UI::Text>(args[0], std::stoi(args[1]));
         };
+        factoryMap["UI::Panel"] = [](const std::vector<std::string>& args) {
+            return std::make_unique<UI::Panel>(args[0], std::stoi(args[1]));
+        };
         factoryMap["Map::Map"] = [](const std::vector<std::string>& args){
             return std::make_unique<Map::Map>(std::stoi(args[0]), std::stoi(args[1]));
         };
+       
     }
 
     auto it = factoryMap.find(className);
@@ -70,7 +75,11 @@ Engine::Scene::Scene(std::string name, std::string sceneJson, Game::SF* game){
         if(script != "NONE"){
             std::cout << "Script " << script << " for " << objs["obj"].asString() << " " << objs["args"][0] << std::endl; 
             game->loadScript(obj.get(), script);
+
+            obj->initScript();
         }
+
+        
 
         addObject(obj.release());
     }

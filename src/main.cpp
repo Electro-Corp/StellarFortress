@@ -36,12 +36,6 @@ int main(int argv, char** args){
 	// Load scenes
 	Engine::Scene main("Main Menu", "../assets/scenes/mainMenu.json", game);
 	Engine::Scene map("Test Map", "../assets/scenes/map.json", game);
-
-	UI::Text fpsText("FPS");
-	fpsText.rgb = RGB(255);
-	fpsText.transform.scale = Transform::Vector2(200.0, 20.0);
-	fpsText.transform.position = Transform::Vector2(0, 0);
-
 	
 	std::cout << "Entering main Render loop\n";
 
@@ -53,10 +47,7 @@ int main(int argv, char** args){
 	// Set scene to tick 
 	game->setTickNum(0);
 	
-	int fps;
 	while(1){
-		fps = (int)(1000 / game->getDelta());
-		fpsText.setText("FPS: " + std::to_string(fps) + " [LOCKED]");
 		game->tick();
 	}
 	

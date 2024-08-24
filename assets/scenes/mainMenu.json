@@ -6,7 +6,7 @@
       "args" : ["../assets/textures/menu/cursor.png"],
       "script" : "../assets/scripts/scenes/mainlogo/cursor.lua"
     },
-    "E_FPS" : {
+    "G_FPS" : {
       "obj" : "UI::Text",
       "args" : ["FPS", 255],
       "script" : "../assets/scripts/comUI/fpsDisp.lua",

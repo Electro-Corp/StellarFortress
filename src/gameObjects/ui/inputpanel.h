@@ -5,26 +5,20 @@
 
 #include <rgb.h>
 #include <gameobject.h>
+#include <gameObjects/ui/text.h>
 
 namespace UI{
 
-    class Text : public Engine::GameObject {
+    class Panel : public Engine::GameObject {
     private:
-        sf::Font font;
-        sf::Text text;
-
-        TTF_Font* SD_font = NULL;
-        SDL_Texture* texture;
+       
 
     public:
+        UI::Text* question;
+        UI::Text* input;
         RGB rgb;
-        std::string caption;
-    
-        Text(std::string caption);
-        Text(std::string caption, int rgb);
 
-        void setText(std::string caption);
-        void setSize(int size);
+        Panel(std::string question, int rgb);
 
         void initScript() override;
         void update() override;
