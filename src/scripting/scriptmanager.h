@@ -41,15 +41,21 @@ namespace Scripting{
 
             int keyCallBackReg = 0;
 
+            lua_State* luaState = nullptr;
+
             Engine::GameObject* thisObj;
         public:
-            Script(lua_State* L);
+            Script(lua_State* L, std::string path);
 
             void setGameObj(Engine::GameObject*);
 
             luabridge::LuaRef getUpdateFunc();
 
-            void update();
+            
+            template <typename T>
+            void update(T* cast){
+                updateFunc((T*)thisObj);
+            }
 
             void onKeyPressed(char key);
     };
@@ -60,6 +66,7 @@ namespace Scripting{
             lua_State* m_luaState;
             std::vector<luabridge::LuaRef> initFuncs;
             std::vector<luabridge::LuaRef> updateFuncs;
+            std::vector<lua_State*> luaStates;
 
             std::unique_ptr<Rendering::Renderer> m_renderManGlob;
             std::unique_ptr<Game::SF> m_gameGlob;
@@ -73,7 +80,7 @@ namespace Scripting{
             void initScripts();
 
             // Expose GameObject features to Lua
-            void exposeGame();
+            void exposeGame(lua_State* L);
 
             // Expose Scene features to Lua
             void exposeScene();

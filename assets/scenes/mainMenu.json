@@ -1,10 +1,19 @@
 {
   "name": "Main Menu",
   "objects" : {
-    "F_CURSOR" : {
+    "Z_CURSOR" : {
       "obj" : "Engine::GameObject",
       "args" : ["../assets/textures/menu/cursor.png"],
       "script" : "../assets/scripts/scenes/mainlogo/cursor.lua"
+    },
+    "E_FPS" : {
+      "obj" : "UI::Text",
+      "args" : ["FPS", 255],
+      "script" : "../assets/scripts/comUI/fpsDisp.lua",
+      "transform" : {
+        "position" : [0.0, 0.0],
+        "scale" : [200.0, 20.0]
+      }
     },
     "D_PLAYTEXT" : {
       "obj" : "UI::Text",

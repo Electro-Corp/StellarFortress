@@ -16,9 +16,9 @@ namespace UI{
         TTF_Font* SD_font = NULL;
         SDL_Texture* texture;
 
-        std::string caption;
     public:
         RGB rgb;
+        std::string caption;
     
         Text(std::string caption);
         Text(std::string caption, int rgb);

@@ -85,7 +85,10 @@ void UI::Text::update(){
     texture_rect.h = this->transform.scale.y;
 #endif
     // run scripts
-    updateScript();
+    //updateScript();
+    if(this->script){
+        this->script->update(this);
+    }
 }
 #if USE_SFML
 void UI::Text::draw(sf::RenderWindow* window){

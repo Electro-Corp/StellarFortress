@@ -5,7 +5,10 @@
 #include <gameObjects/ui/text.h>
 #include <map/map.h>
 
-
+/*
+    Feels like this dosen't belong here, but I don't know where else to put it
+    or more rather, i dont care enough right now to move it to the utils folder
+*/
 std::unique_ptr<Engine::GameObject> createInstance(const std::string& className, const std::vector<std::string>& args) {
     static std::unordered_map<std::string, std::function<std::unique_ptr<Engine::GameObject>(const std::vector<std::string>&)>> factoryMap;
 
@@ -40,7 +43,7 @@ Engine::Scene::Scene(std::string name, std::string sceneJson, Game::SF* game){
     JsonReader reader(sceneJson);
     Json::Value val = reader.read();
     for(auto& objs : val["objects"]){
-        std::cout << objs["texture"].asString() << std::endl;
+        //std::cout << objs["texture"].asString() << std::endl;
         // Generate
         std::vector<std::string> argList;
 
@@ -51,22 +54,25 @@ Engine::Scene::Scene(std::string name, std::string sceneJson, Game::SF* game){
         std::string script = objs["script"].asString();
         std::unique_ptr<Engine::GameObject> obj = createInstance(objs["obj"].asString(), argList);
 
-        if(objs["transform"]){
-            float xPos = objs["transform"]["position"][0].asFloat();
-            float yPos = objs["transform"]["position"][1].asFloat();
-            float xScale = objs["transform"]["scale"][0].asFloat();
-            float yScale = objs["transform"]["scale"][0].asFloat();
-
-            obj->transform.position = Transform::Vector2(xPos, yPos);
-            obj->transform.scale = Transform::Vector2(xScale, yScale);
+        if(objs.isMember("transform")){
+           // if(objs["transfrom"]["position"] != NULL){
+                float xPos = objs["transform"]["position"][0].asFloat();
+                float yPos = objs["transform"]["position"][1].asFloat();
+                obj->transform.position = Transform::Vector2(xPos, yPos);
+            //}
+           // if(objs["transform"]["scale"] != NULL){
+                float xScale = objs["transform"]["scale"][0].asFloat();
+                float yScale = objs["transform"]["scale"][1].asFloat();
+                obj->transform.scale = Transform::Vector2(xScale, yScale);
+           // }
         }
         
         if(script != "NONE"){
+            std::cout << "Script " << script << " for " << objs["obj"].asString() << " " << objs["args"][0] << std::endl; 
             game->loadScript(obj.get(), script);
         }
 
         addObject(obj.release());
-        
     }
 }
 

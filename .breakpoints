@@ -1,3 +1,20 @@
 {
-  "files": {}
+  "files": {
+    "assets/scenes/mainMenu.json": [
+      {
+        "id": "2cec9671-4870-4f12-805d-cc90d602d73b",
+        "line": 10,
+        "version": 997,
+        "index": 238
+      }
+    ],
+    "src/scripting/scriptmanager.h": [
+      {
+        "id": "dccee8c5-2c77-47ee-bef5-37a0a121174e",
+        "line": 59,
+        "version": 343,
+        "index": 1113
+      }
+    ]
+  }
 }

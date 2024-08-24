@@ -86,7 +86,7 @@ void Engine::GameObject::draw(SDL_Renderer* renderer){
 
 void Engine::GameObject::updateScript(){
     if(this->script){
-        this->script->update();
+        this->script->update(this);
     }
 }
 

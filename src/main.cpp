@@ -33,9 +33,9 @@ void tickThread(Game::SF* dsa){
 int main(int argv, char** args){
 	Game::SF* game = new Game::SF();
 
+	// Load scenes
 	Engine::Scene main("Main Menu", "../assets/scenes/mainMenu.json", game);
 	Engine::Scene map("Test Map", "../assets/scenes/map.json", game);
-
 
 	UI::Text fpsText("FPS");
 	fpsText.rgb = RGB(255);
@@ -47,21 +47,10 @@ int main(int argv, char** args){
 
 	game->mainMenu = std::unique_ptr<Engine::Scene>(&main);
 
-	// Map test scene
-	// Engine::Scene map("Map");
-
-	// Map::Map map1(7, 7);
-
-	// map.addObject(&map1);
-
-	// map.addObject(&fpsText);
-	
-	// map.addObject(&cursor);
-
 	game->scenes.push_back(std::unique_ptr<Engine::Scene>(&main));
 	game->scenes.push_back(std::unique_ptr<Engine::Scene>(&map));
-	//game->scenes.push_back(std::unique_ptr<Engine::Scene>(&map));
 
+	// Set scene to tick 
 	game->setTickNum(0);
 	
 	int fps;
@@ -70,9 +59,6 @@ int main(int argv, char** args){
 		fpsText.setText("FPS: " + std::to_string(fps) + " [LOCKED]");
 		game->tick();
 	}
-	/*std::thread t1(&(tickThread), game);
-
-	t1.join();*/
 	
 	return 0;
 }
