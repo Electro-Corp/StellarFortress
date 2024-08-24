@@ -70,6 +70,7 @@ function onKeyPressed(object, key)
     object.transform.x = 50
   end
 end
-
+```
+<hr>
 ## ToDO:
 * music/audio manager
