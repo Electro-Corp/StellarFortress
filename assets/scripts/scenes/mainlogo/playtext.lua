@@ -17,7 +17,7 @@ end
 
 function onKeyPressed(object, key)
   print(key)
-  if key == 'k' then
+  if key == 's' then
     Game:setTickNum(1)
   end
 end
