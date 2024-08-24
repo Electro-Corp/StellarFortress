@@ -1,4 +1,4 @@
-function init()
+function init(objet)
 end
 
 function update(textObj)

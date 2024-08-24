@@ -33,6 +33,7 @@ Scripting::Script::Script(lua_State* L, std::string path){
 
 void Scripting::Script::setGameObj(Engine::GameObject* obj){
     this->thisObj = obj;
+    init(obj);
 }
 
 luabridge::LuaRef Scripting::Script::getUpdateFunc(){

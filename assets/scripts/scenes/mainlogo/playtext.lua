@@ -1,5 +1,8 @@
-function init()
-
+function init(object)
+  object.transform.scale.x = 350
+  object.transform.scale.y = 45
+  object.transform.position.x = (Graphics:getWindowSize().x / 2) - (object.transform.scale.x / 2)
+  object.transform.position.y = 500
 end
 
 function lerp(a, b, t)
@@ -9,10 +12,7 @@ end
 
 count = 0
 function update(object)
-  object.transform.scale.x = 350
-  object.transform.scale.y = 45
-  object.transform.position.x = (Graphics:getWindowSize().x / 2) - (object.transform.scale.x / 2)
-  object.transform.position.y = 500
+  
 end
 
 function onKeyPressed(object, key)
