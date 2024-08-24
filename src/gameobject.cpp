@@ -98,3 +98,7 @@ void Engine::GameObject::update(){
     updateTransform();
     updateScript();
 }
+
+void Engine::GameObject::setTex(std::string texLoc){
+    this->sprite = new Rendering::Sprite(texLoc);
+}

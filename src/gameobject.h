@@ -44,6 +44,7 @@ namespace Engine {
 
             virtual void updateScript();
             void updateTransform();
+            void setTex(std::string);
 
 #if USE_SFML
             virtual void draw(sf::RenderWindow* window);

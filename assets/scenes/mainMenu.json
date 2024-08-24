@@ -17,7 +17,7 @@
     },
     "D_PLAYTEXT" : {
       "obj" : "UI::Text",
-      "args" : ["Press any key to begin...", 255],
+      "args" : ["Press 'S' to begin...", 255],
       "script" : "../assets/scripts/scenes/mainlogo/playtext.lua",
       "transform" : {
         "position" : [500.0, 50.0],
@@ -45,7 +45,7 @@
     "A_MENU_BG" : {
       "obj" : "Engine::GameObject",
       "args" : ["../assets/textures/menu/space.png"],
-      "script" : "NONE",
+      "script" : "../assets/scripts/scenes/mainlogo/bg.lua",
       "transform" : {
         "position" : [0, 0],
         "scale" : [800.0, 600.0]

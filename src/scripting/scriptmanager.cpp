@@ -122,6 +122,7 @@ void Scripting::ScriptManager::exposeGame(lua_State* state){
         .addConstructor<void(*) ()>()
         .addConstructor<void(*) (Transform::Transform)>()
         .addFunction("getSprite", &Engine::GameObject::getSprite)
+        .addFunction("setTex", &Engine::GameObject::setTex)
         .addProperty("transform", &Engine::GameObject::transform)
         .endClass()
         .deriveClass<UI::Text, Engine::GameObject>("Text")
