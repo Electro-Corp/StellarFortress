@@ -42,23 +42,27 @@ Engine::Scene::Scene(std::string name){
     this->name = name;
 }
 
-Engine::Scene::Scene(std::string name, std::string sceneJson, Game::SF* game){
+Engine::Scene::Scene(std::string name, std::string sceneJson){
     this->name = name;
+    this->json = sceneJson;
+}
+
+void Engine::Scene::load(Game::SF* game){
     // Load scene from a json file
-    JsonReader reader(sceneJson);
+    JsonReader reader(json);
     Json::Value val = reader.read();
     for(auto& objs : val["objects"]){
         //std::cout << objs["texture"].asString() << std::endl;
         // Generate
         std::vector<std::string> argList;
-
+    
         for(auto& args : objs["args"]){
             argList.push_back(args.asString());
         }
-        
+    
         std::string script = objs["script"].asString();
         std::unique_ptr<Engine::GameObject> obj = createInstance(objs["obj"].asString(), argList);
-
+    
         if(objs.isMember("transform")){
            // if(objs["transfrom"]["position"] != NULL){
                 float xPos = objs["transform"]["position"][0].asFloat();
@@ -71,16 +75,16 @@ Engine::Scene::Scene(std::string name, std::string sceneJson, Game::SF* game){
                 obj->transform.scale = Transform::Vector2(xScale, yScale);
            // }
         }
-        
+    
         if(script != "NONE"){
             std::cout << "Script " << script << " for " << objs["obj"].asString() << " " << objs["args"][0] << std::endl; 
             game->loadScript(obj.get(), script);
-
+    
             obj->initScript();
         }
-
-        
-
+    
+    
+    
         addObject(obj.release());
     }
 }

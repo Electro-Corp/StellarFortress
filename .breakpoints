@@ -4,16 +4,16 @@
       {
         "id": "2cec9671-4870-4f12-805d-cc90d602d73b",
         "line": 9,
-        "version": 1068,
+        "version": 1160,
         "index": 222
       }
     ],
     "src/scripting/scriptmanager.h": [
       {
         "id": "dccee8c5-2c77-47ee-bef5-37a0a121174e",
-        "line": 63,
-        "version": 389,
-        "index": 1222
+        "line": 68,
+        "version": 430,
+        "index": 1342
       }
     ]
   }

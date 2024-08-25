@@ -80,6 +80,24 @@ void Rendering::Renderer::update(Engine::Scene scene){
         case SDL_MOUSEMOTION:
           SDL_GetMouseState(&this->mouseX, &this->mouseY);
           break;
+        case SDL_MOUSEBUTTONDOWN:
+          switch (e.button.button){
+            case SDL_BUTTON_LEFT:
+              // Switch context
+              for (Engine::GameObject* gameObj : scene.getObjs()){
+                  if(gameObj->transform.position.x <= this->mouseX && 
+                      gameObj->transform.position.x + gameObj->transform.scale.x >= this->mouseX &&
+                        gameObj->transform.position.y <= this->mouseY && 
+                          gameObj->transform.position.y + gameObj->transform.scale.y >= this->mouseY){
+                            //printf("found a dude %f\n", gameObj->transform.position.x);
+                            curContext = gameObj;
+                  }
+              }
+              break;
+            default:
+              break;
+          }
+          break;
         case SDL_KEYDOWN:
             key = e.key.keysym.sym;
             for (Engine::GameObject* gameObj : scene.getObjs()){
@@ -87,7 +105,13 @@ void Rendering::Renderer::update(Engine::Scene scene){
                     gameObj->update();
                     gameObj->script->onKeyPressed(key);
                 }
+
             }
+            /*if(curContext->script){
+              printf("acutally found a script\n");
+              curContext->update();
+              curContext->script->onKeyPressed(key);
+            }*/
             keybuffer.push_back(e.key.keysym.sym);
             if(keybuffer.size() > 50){
                 keybuffer.clear();

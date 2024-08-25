@@ -3,8 +3,8 @@
 
 Map::MapRow::MapRow(int y, int width){
   for(int x = 0; x < width; x++){
-    Game::Tile tile(RGB(x * 100 , (x + y) * 100, y * 10, 255));
-    tile.transform.scale = Transform::Vector2(100, 100);
+    Game::Tile tile(RGB(x * 100, (x + y) * 100, y * 10, 255));
+    tile.transform.scale = Transform::Vector2(25, 25);
     tile.transform.position = Transform::Vector2(x * tile.transform.scale.x, y * tile.transform.scale.y);
     tile.update();
     this->row.push_back(tile);

@@ -19,14 +19,18 @@ namespace Engine{
 
     class Scene{
         private:    
-            std::string name;
+            std::string name, json;
 
             std::vector<Engine::GameObject*> gameObjects;
         public:
             Scene(std::string name);
 
-            Scene(std::string name, std::string sceneJson, Game::SF* game);
+            Scene(std::string name, std::string sceneJson);
 
+            // Actually load in the scene
+            void load(Game::SF* game);
+    
+    
             // Add object into current scene
             void addObject(Engine::GameObject* object);
 

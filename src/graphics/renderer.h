@@ -14,10 +14,11 @@
 #include <game.h>
 #include <transform.h>
 
-
+#include <gameobject.h>
 
 namespace Engine{
     class Scene;
+    class GameObject;
 }
 namespace Game{
     class SF;
@@ -55,6 +56,8 @@ namespace Rendering{
             Engine::Scene* lScene;
 
             std::vector<luabridge::LuaRef*> keyCallBacks;
+
+            Engine::GameObject* curContext;
         public:
             #if USE_SFML
             float mouseX, mouseY, mouseDelta, zoom;

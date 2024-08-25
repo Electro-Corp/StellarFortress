@@ -34,8 +34,8 @@ int main(int argv, char** args){
 	Game::SF* game = new Game::SF();
 
 	// Load scenes
-	Engine::Scene main("Main Menu", "../assets/scenes/mainMenu.json", game);
-	Engine::Scene map("Test Map", "../assets/scenes/map.json", game);
+	Engine::Scene main("Main Menu", "../assets/scenes/mainMenu.json");//, game);
+	Engine::Scene map("Test Map", "../assets/scenes/map.json");//, game);
 	
 	std::cout << "Entering main Render loop\n";
 
