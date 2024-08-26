@@ -3,17 +3,17 @@
     "assets/scenes/mainMenu.json": [
       {
         "id": "2cec9671-4870-4f12-805d-cc90d602d73b",
-        "line": 9,
-        "version": 1160,
-        "index": 222
+        "line": 18,
+        "version": 1219,
+        "index": 499
       }
     ],
     "src/scripting/scriptmanager.h": [
       {
         "id": "dccee8c5-2c77-47ee-bef5-37a0a121174e",
-        "line": 68,
-        "version": 430,
-        "index": 1342
+        "line": 69,
+        "version": 444,
+        "index": 1360
       }
     ]
   }
