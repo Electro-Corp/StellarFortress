@@ -1,7 +1,16 @@
 {
   "name": "Main Menu",
   "objects" : {
-    "Z_CURSOR" : {
+    "Z_BLACK" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/menu/blacksc.jpg"],
+      "script" : "../assets/scripts/scenes/mainlogo/blackfade.lua",
+      "transform" : {
+        "position" : [0, 0],
+        "scale" : [800.0, 600.0]
+      }
+    },
+    "Y_CURSOR" : {
       "obj" : "Engine::GameObject",
       "args" : ["../assets/textures/menu/cursor.png"],
       "script" : "../assets/scripts/scenes/mainlogo/cursor.lua"

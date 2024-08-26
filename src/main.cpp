@@ -34,6 +34,7 @@ int main(int argv, char** args){
 	Game::SF* game = new Game::SF();
 
 	// Load scenes
+	Engine::Scene logos("Logos", "../assets/scenes/logos.json");
 	Engine::Scene main("Main Menu", "../assets/scenes/mainMenu.json");//, game);
 	Engine::Scene map("Test Map", "../assets/scenes/map.json");//, game);
 	
@@ -41,6 +42,7 @@ int main(int argv, char** args){
 
 	game->mainMenu = std::unique_ptr<Engine::Scene>(&main);
 
+	game->scenes.push_back(std::unique_ptr<Engine::Scene>(&logos));
 	game->scenes.push_back(std::unique_ptr<Engine::Scene>(&main));
 	game->scenes.push_back(std::unique_ptr<Engine::Scene>(&map));
 

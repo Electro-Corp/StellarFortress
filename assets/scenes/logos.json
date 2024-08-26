@@ -1,0 +1,23 @@
+{
+  "name" : "Logo",
+  "objects" : {
+    "A_LOGO" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/logos/EGAMESTUDIO.png"],
+      "script" : "../assets/scripts/scenes/logos/logo1.lua",
+      "transform" : {
+        "position" : [0.0, 0.0],
+        "scale" : [800.0, 600.0]
+      }
+    },
+    "B_LOGO" : {
+      "obj" : "Engine::GameObject",
+      "args" : ["../assets/textures/logos/MOSIACPOWERED.png"],
+      "script" : "../assets/scripts/scenes/logos/logo2.lua",
+      "transform" : {
+        "position" : [0.0, 0.0],
+        "scale" : [800.0, 600.0]
+      }
+    }
+  }
+}

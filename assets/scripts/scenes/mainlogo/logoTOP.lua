@@ -3,6 +3,7 @@ targetY = Graphics:getWindowSize().y / 11
 function init(object)
   object.transform.scale.x = 510
   object.transform.scale.y = 170
+
 end
 
 function lerp(a, b, t)

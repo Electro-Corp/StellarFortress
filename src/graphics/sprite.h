@@ -20,7 +20,7 @@ namespace Rendering{
             SDL_Surface* surface = nullptr;
             
         #endif
-
+            std::string fName;
             int renderLayer;
         public:
             /*
@@ -30,6 +30,8 @@ namespace Rendering{
             SDL_Texture* SD_texture = nullptr;
             Sprite();
             Sprite(std::string fileName);
+
+            void setAlpha(int alpha);
 
         #if USE_SFML
             // Return the SFML sprite

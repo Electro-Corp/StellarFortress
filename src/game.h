@@ -29,7 +29,7 @@ namespace Game{
             Scripting::ScriptManager* scriptMan;
             Rendering::Renderer* renderer;
 
-            int tickNum;
+            int tickNum = -1;
         public:
             /********
                 SCENE LIST

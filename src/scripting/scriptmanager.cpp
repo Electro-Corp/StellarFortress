@@ -2,6 +2,8 @@
 */
 #include <scripting/scriptmanager.h>
 
+#include <graphics/sprite.h>
+
 #include <gameObjects/ui/text.h>
 #include <gameObjects/ui/inputpanel.h>
 
@@ -129,12 +131,19 @@ void Scripting::ScriptManager::exposeGame(lua_State* state){
         .endClass();
 
     luabridge::getGlobalNamespace(state)
+        .beginClass<Rendering::Sprite>("Sprite")
+        .addConstructor<void(*) (std::string)>()
+        .addFunction("setAlpha", &Rendering::Sprite::setAlpha)
+        .endClass();
+
+    luabridge::getGlobalNamespace(state)
         .beginClass<Engine::GameObject>("GameObject")
         .addConstructor<void(*) ()>()
         .addConstructor<void(*) (Transform::Transform)>()
         .addFunction("getSprite", &Engine::GameObject::getSprite)
         .addFunction("setTex", &Engine::GameObject::setTex)
         .addProperty("transform", &Engine::GameObject::transform)
+        // .addProperty("sprite", &Engine::GameObject::sprite)
         .endClass()
         .deriveClass<UI::Text, Engine::GameObject>("Text")
         // .addConstructor<void(*) ()>()

@@ -29,6 +29,9 @@ namespace Engine{
 
             // Actually load in the scene
             void load(Game::SF* game);
+
+            // Deload everything
+            void deload();
     
     
             // Add object into current scene

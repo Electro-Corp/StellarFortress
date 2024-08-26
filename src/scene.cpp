@@ -89,6 +89,10 @@ void Engine::Scene::load(Game::SF* game){
     }
 }
 
+void Engine::Scene::deload(){
+    gameObjects.clear();
+}
+
 void Engine::Scene::addObject(Engine::GameObject* object){
     this->gameObjects.emplace_back(object);
 }

@@ -58,6 +58,10 @@ void Game::SF::tick(){
 }
 
 void Game::SF::setTickNum(int num){
+    if(tickNum != -1){
+        printf("Deload scene %d\n", tickNum);
+        scenes[tickNum]->deload();
+    }
     this->tickNum = num;
     printf("Load scene %d\n", num);
     scenes[tickNum]->load(this);

@@ -28,6 +28,7 @@ namespace Engine{
 }
 namespace Rendering{
     class Renderer;
+    class Sprite;
 }
 namespace Game{
     class SF;
