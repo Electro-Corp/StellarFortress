@@ -65,7 +65,7 @@ namespace Rendering{
             #if USE_SDL
             int mouseX, mouseY, mouseDelta, zoom;
             #endif
-            bool mouseDown;
+            bool mouseDown, rendering = false;
             
             std::vector<char> keybuffer;
             
@@ -75,7 +75,7 @@ namespace Rendering{
             Renderer();
 
             // Update the render view based on the current scene
-            void update(Engine::Scene scene);
+            void update(Engine::Scene* scene);
 
             void moveView(float x, float y);
             

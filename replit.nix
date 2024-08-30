@@ -14,5 +14,6 @@
 		pkgs.SDL2_image
 		pkgs.gcc
 		pkgs.SDL2_ttf
+		pkgs.qt4
 	];
 }

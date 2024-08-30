@@ -21,7 +21,7 @@ Rendering::Renderer::Renderer(){
     
 }
 
-void Rendering::Renderer::update(Engine::Scene scene){
+void Rendering::Renderer::update(Engine::Scene* scene){
 #if USE_SFML
     if(window->isOpen()){
         // Handle input
@@ -50,7 +50,7 @@ void Rendering::Renderer::update(Engine::Scene scene){
         // Clear Display    
         window->clear();
         // Draw
-        for (Engine::GameObject* gameObj : scene.getObjs()){
+        for (Engine::GameObject* gameObj : scene->getObjs()){
             gameObj->update();
             gameObj->draw(window);
         }
@@ -84,7 +84,7 @@ void Rendering::Renderer::update(Engine::Scene scene){
           switch (e.button.button){
             case SDL_BUTTON_LEFT:
               // Switch context
-              for (Engine::GameObject* gameObj : scene.getObjs()){
+              for (Engine::GameObject* gameObj : scene->getObjs()){
                   if(gameObj->transform.position.x <= this->mouseX && 
                       gameObj->transform.position.x + gameObj->transform.scale.x >= this->mouseX &&
                         gameObj->transform.position.y <= this->mouseY && 
@@ -100,7 +100,7 @@ void Rendering::Renderer::update(Engine::Scene scene){
           break;
         case SDL_KEYDOWN:
             key = e.key.keysym.sym;
-            for (Engine::GameObject* gameObj : scene.getObjs()){
+            for (Engine::GameObject* gameObj : scene->getObjs()){
                 if(gameObj->script){
                     gameObj->update();
                     gameObj->script->onKeyPressed(key);
@@ -125,11 +125,20 @@ void Rendering::Renderer::update(Engine::Scene scene){
     {
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);   
         SDL_RenderClear(renderer);
-        for (Engine::GameObject* gameObj : scene.getObjs()){
-            if(!key)
-                gameObj->update();
-            gameObj->draw(renderer);
+        rendering = true;
+        for (Engine::GameObject* gameObj : scene->getObjs()){
+            //printf("%s is %d\n", scene->getName().c_str(), scene->loaded);
+            if(scene->loaded == true){
+                if(gameObj != nullptr){
+                    if(!key)
+                        gameObj->update();
+                    gameObj->draw(renderer);
+                }
+            }else{
+                break;
+            }
         }
+        rendering = false;
         SDL_RenderPresent(renderer);
         delta = 0;
     }else{

@@ -23,7 +23,9 @@ namespace Engine{
 
             std::vector<Engine::GameObject*> gameObjects;
         public:
-            Scene(std::string name);
+            bool loaded = false;
+    
+            Scene(std::string name); 
 
             Scene(std::string name, std::string sceneJson);
 
@@ -39,6 +41,8 @@ namespace Engine{
 
             // Get all objects in scene
             std::vector<Engine::GameObject*> getObjs();
+
+            std::string getName(){return name;}
     };
 }
 

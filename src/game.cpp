@@ -2,6 +2,8 @@
 */
 #include <game.h>
 
+static int segfaults = 0;
+
 Game::SF::SF(){
     this->renderer = new Rendering::Renderer(std::string("Stellar Fortress"), 800, 600, this);
     scriptMan = new Scripting::ScriptManager("../assets/scripts", renderer, this);
@@ -27,7 +29,7 @@ void Game::SF::initScripts(){
     this->scriptMan->initScripts();
 }
 
-void Game::SF::tick(Engine::Scene scene){
+void Game::SF::tick(Engine::Scene* scene){
     this->renderer->update(scene);
 }
 
@@ -48,18 +50,20 @@ lua_State* Game::SF::getLuaState(){
 }
 
 void Game::SF::mainMenuLoop(){
-    tick(*mainMenu);
+    //tick(mainMenu);
 }
 
 void Game::SF::tick(){
     // TODO: SWITCH STATMENT
     //this->renderer->update(*mainMenu);
-    this->renderer->update(*(scenes[tickNum]));
+    if(scenes[tickNum]->loaded)
+        this->renderer->update((scenes[tickNum]).get());
 }
 
 void Game::SF::setTickNum(int num){
     if(tickNum != -1){
         printf("Deload scene %d\n", tickNum);
+        //while(this->renderer->rendering){}
         scenes[tickNum]->deload();
     }
     this->tickNum = num;
@@ -79,6 +83,11 @@ void Game::SF::endGame(){
 }
 
 void Game::SF::segFault(){
-    std::cout << "Segmentation fault! Game Exited.\n";
-    endGame();
+    segfaults++;
+    if(segfaults < 5){
+        std::cout << "Segmentation fault (" << segfaults << ")! Attempting to continue game...\n";
+    }else{
+        std::cout << "Too many segfaults! Clearly this situation is unrecoverable. Exiting game.\n";
+        endGame();
+    }
 }

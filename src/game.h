@@ -44,7 +44,7 @@ namespace Game{
     
             void loadScript(Engine::GameObject* object, std::string path);
     
-            void tick(Engine::Scene);
+            void tick(Engine::Scene*);
 
             void tick();
 

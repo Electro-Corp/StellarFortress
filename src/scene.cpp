@@ -87,10 +87,18 @@ void Engine::Scene::load(Game::SF* game){
     
         addObject(obj.release());
     }
+    loaded = true;
 }
 
 void Engine::Scene::deload(){
+    printf("%s deloading...\n", this->name.c_str());
+    /*for(auto& gm : gameObjects){
+        delete gm;
+    }
     gameObjects.clear();
+    gameObjects.shrink_to_fit();
+    loaded = false;*/
+    printf("%s deloaded.\n", this->name.c_str());
 }
 
 void Engine::Scene::addObject(Engine::GameObject* object){
