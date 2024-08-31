@@ -72,7 +72,7 @@ void Game::SF::setTickNum(int num){
 }
 
 
-void Game::SF::endGame(){
+void Game::SF::endGame(int s){
     // Confirm
     // Exit
     // Print bye bye
@@ -82,12 +82,12 @@ void Game::SF::endGame(){
     exit(1);
 }
 
-void Game::SF::segFault(){
+void Game::SF::segFault(int s){
     segfaults++;
     if(segfaults < 5){
         std::cout << "Segmentation fault (" << segfaults << ")! Attempting to continue game...\n";
     }else{
         std::cout << "Too many segfaults! Clearly this situation is unrecoverable. Exiting game.\n";
-        endGame();
+        endGame(-1);
     }
 }

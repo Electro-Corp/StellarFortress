@@ -15,7 +15,7 @@ project(STELLAR)
 find_package(SDL2 REQUIRED)
 # SDL Image
 # \\ find_package(SDL2_image REQUIRED)
-find_package(SDL2_ttf REQUIRED)
+#find_package(SDL2_ttf REQUIRED)
 # LUA
 find_package(Lua REQUIRED)
 # JSONCPP
@@ -62,7 +62,7 @@ add_executable(STELLAR
 
 
 # Flags
-target_compile_options(STELLAR PUBLIC -fpermissive -g -O0)
+target_compile_options(STELLAR PUBLIC -fpermissive -Wno-c++11-narrowing -g -O0)
 
 target_link_libraries(STELLAR ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} sfml-graphics sfml-audio)
 target_link_libraries(STELLAR ${LUA_LIBRARIES} ${LUA_DEPENDENCIES})

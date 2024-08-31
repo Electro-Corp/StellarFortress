@@ -65,8 +65,8 @@ namespace Game{
 
             void setTickNum(int num);
         
-            static void endGame();
+            static void endGame(int);
     
-            static void segFault();
+            static void segFault(int);
     };
 }

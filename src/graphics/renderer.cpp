@@ -58,7 +58,7 @@ void Rendering::Renderer::update(Engine::Scene* scene){
         window->display();
     }else{
         // End the game
-        game->endGame();
+        game->endGame(0);
     }
 #endif
 #if USE_SDL
@@ -70,7 +70,7 @@ void Rendering::Renderer::update(Engine::Scene* scene){
         case SDL_WINDOWEVENT:
           switch (e.window.event) {
             case SDL_WINDOWEVENT_CLOSE:
-                game->endGame();
+                game->endGame(0);
                 break;
         
             default:
