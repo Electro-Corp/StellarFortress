@@ -4,6 +4,7 @@
 #include "uiman.h"
 #include "jsonReader.h"
 #include "object.h"
+#include "transform.h"
 
 #include <QObject>
 #include <QFileDialog>

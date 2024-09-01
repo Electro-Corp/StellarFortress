@@ -53,6 +53,11 @@ private:
   QToolBox *toolBox;
   // Add things to toolbox
   QWidget *generalPage;
+  // generalPage stuff
+  QVBoxLayout *generalPageLayout;
+  QLabel *objType;
+  QLabel *scriptLabel;
+
   QWidget *transformPage;
 
   QWidget *propWid;
@@ -68,6 +73,10 @@ public:
   void addObject(Object* obj);
 
   void updateListView();
+  void clearEditorForNewFile();
+
+public Q_SLOTS:
+  void changeItem(QListWidgetItem*, QListWidgetItem*);
 };
 
 #endif

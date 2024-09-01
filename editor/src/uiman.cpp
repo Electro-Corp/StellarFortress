@@ -57,12 +57,21 @@ void UIMan::initUI() {
   objListTxt = new QLabel("Object list:");
   // Create object list
   objList = new QListWidget();
+  connect(objList, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(changeItem(QListWidgetItem*, QListWidgetItem*)));
   // Create properties text
   propText = new QLabel("Selected object properties:");
   // Create properties toolbox
   toolBox = new QToolBox();
   // Add things to toolbox
   generalPage = new QWidget();
+  generalPageLayout = new QVBoxLayout(generalPage);
+  objType = new QLabel("Object Type");
+  scriptLabel = new QLabel("Script path");
+
+  generalPageLayout->addWidget(objType);
+  generalPageLayout->addWidget(scriptLabel); 
+
+
   transformPage = new QWidget();
   
   toolBox->addItem(generalPage, "General");
@@ -101,7 +110,21 @@ void UIMan::addObject(Object* obj){
 
 void UIMan::updateListView(){
   for(auto& item : objVec){
-    item->setText(tr(item->type.c_str()));
+    item->setText(tr(item->objectClass.c_str()));
     objList->addItem(item);
   }
+}
+
+void UIMan::clearEditorForNewFile(){
+  objList->clear();
+  objVec.clear();
+}
+
+void UIMan::changeItem(QListWidgetItem* c, QListWidgetItem* prev){
+  Object* selObj = (Object*)c;
+
+  objType->setText(tr(selObj->objectClass.c_str()));
+  scriptLabel->setText(tr(selObj->script.c_str()));
+
+  std::cout << "sel change, " << selObj->objectClass << "\n";
 }
