@@ -28,7 +28,7 @@ public:
 
     void setStuff(){
         if(objectClass == "Engine::GameObject"){
-            this->spritePath = args[0];
+            this->spritePath = std::string{"../" + args[0]};
         }else if(objectClass == "UI::Text"){
             this->caption = args[0];
             this->rgb = std::stoi(args[1]);

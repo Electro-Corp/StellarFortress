@@ -71,8 +71,24 @@ void UIMan::initUI() {
   generalPageLayout->addWidget(objType);
   generalPageLayout->addWidget(scriptLabel); 
 
-
   transformPage = new QWidget();
+  transformInfo = new QVBoxLayout(transformPage);
+
+  posWid = new QWidget();
+  position = new QHBoxLayout(transformPage);
+  posWid->setLayout(position);
+  objPosition = new QLabel("Position");
+  position->addWidget(objPosition);
+
+  transformInfo->addWidget(posWid);
+
+  scaleWid = new QWidget();
+  scale = new QHBoxLayout(transformPage);
+  scaleWid->setLayout(scale);
+  objScale = new QLabel("Scale");
+  scale->addWidget(objScale);
+
+  transformInfo->addWidget(scaleWid);
   
   toolBox->addItem(generalPage, "General");
   toolBox->addItem(transformPage, "Transform");
@@ -105,6 +121,15 @@ int UIMan::run() {
 void UIMan::addObject(Object* obj){
   objVec.push_back(obj);
   updateListView();
+
+  // Load into view
+  if(obj->spritePath.size() > 0){
+    QImage image(obj->spritePath.c_str());
+    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+    item->setPos(0 , 0);
+    item->setScale(0.4);
+    scene->addItem(item);
+  }
 }
 
 
@@ -116,6 +141,7 @@ void UIMan::updateListView(){
 }
 
 void UIMan::clearEditorForNewFile(){
+  scene->clear();
   objList->clear();
   objVec.clear();
 }
@@ -125,6 +151,12 @@ void UIMan::changeItem(QListWidgetItem* c, QListWidgetItem* prev){
 
   objType->setText(tr(selObj->objectClass.c_str()));
   scriptLabel->setText(tr(selObj->script.c_str()));
+
+  std::string posText(std::string{"Position: (" + std::to_string(selObj->transform.position.x) + ", "+std::to_string(selObj->transform.position.y) + ")"});
+  objPosition->setText(tr(posText.c_str()));
+
+  std::string scaleText(std::string{"Scale: (" + std::to_string(selObj->transform.scale.x) + ", "+std::to_string(selObj->transform.scale.y) + ")"});
+  objScale->setText(tr(scaleText.c_str()));
 
   std::cout << "sel change, " << selObj->objectClass << "\n";
 }

@@ -19,6 +19,8 @@
 #include <QToolBox>
 #include <QLabel>
 #include <QListView>
+#include <QImage>
+#include <QGraphicsPixmapItem>
 
 #include <vector>
 
@@ -59,6 +61,16 @@ private:
   QLabel *scriptLabel;
 
   QWidget *transformPage;
+  QVBoxLayout *transformInfo;
+
+  QWidget* posWid;
+  QHBoxLayout* position;
+  QLabel *objPosition;
+
+  QWidget* scaleWid;
+  QHBoxLayout* scale;
+  QLabel *objScale;
+
 
   QWidget *propWid;
   QVBoxLayout *props;
