@@ -117,6 +117,10 @@ int UIMan::run() {
   return app->exec();
 }
 
+void UIMan::changeTitle(std::string title){
+  mainWindow.setWindowTitle(title.c_str());
+}
+
 
 void UIMan::addObject(Object* obj){
   objVec.push_back(obj);

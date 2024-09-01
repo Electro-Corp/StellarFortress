@@ -81,6 +81,7 @@ public:
 
   void initUI();
   int run();
+  void changeTitle(std::string title);
 
   void addObject(Object* obj);
 

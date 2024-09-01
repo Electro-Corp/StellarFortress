@@ -15,6 +15,7 @@ void InternalEngine::openScene(){
     if (file->exec()){
         std::string filePath = file->selectedFiles()[0].toStdString();
         std::cout << "Opening " << filePath << "\n";
+        uiMan->changeTitle(std::string{"Mosiac Scene Editor v0.1 | " + filePath});
         JsonReader jsonReader(filePath);
         Json::Value val = jsonReader.read();
         uiMan->clearEditorForNewFile();
