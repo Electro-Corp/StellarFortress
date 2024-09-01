@@ -11,6 +11,13 @@
 #include <QToolBar>
 #include <QAction>  
 #include <QTranslator>
+#include <QHBoxLayout>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QWidget>
+#include <QToolBox>
+#include <QLabel>
+#include <QListView>
 
 class UIMan : public QObject{
   Q_OBJECT

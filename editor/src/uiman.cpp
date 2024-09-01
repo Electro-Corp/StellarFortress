@@ -9,7 +9,7 @@ UIMan::UIMan(QApplication* a, InternalEngine* i) : app(a), internalEngine(i) {
 }
 
 void UIMan::initUI() {
-  mainWindow.resize(1024, 768);
+  mainWindow.resize(640, 480);
   mainWindow.setWindowTitle("Mosaic Scene Editor v0.1 | No file loaded");
 
   /*
@@ -34,8 +34,55 @@ void UIMan::initUI() {
   toolbar->addAction(exitAction);
 
   /*
-    Scene View
+    Main display area
   */
+
+  // Scene view
+  QGraphicsScene* scene = new QGraphicsScene();
+  scene->addText("No file loaded.");
+
+  QGraphicsView* view = new QGraphicsView(scene);
+
+  QWidget *widget = new QWidget();
+  QHBoxLayout *mainDisp = new QHBoxLayout(widget);
+  widget->setLayout(mainDisp);
+
+  // Add scene view
+  mainDisp->addWidget(view);
+
+  // Properties 
+  
+
+  // Create "object list" text
+  QLabel *objListTxt = new QLabel("Object list:");
+  // Create object list
+  QListView *objList = new QListView();
+  // Create properties text
+  QLabel *propText = new QLabel("Selected object properties:");
+  // Create properties toolbox
+  QToolBox *toolBox = new QToolBox();
+  // Add things to toolbox
+  QWidget *generalPage = new QWidget();
+  QWidget *transformPage = new QWidget();
+  
+  toolBox->addItem(generalPage, "General");
+  toolBox->addItem(transformPage, "Transform");
+
+  QWidget *propWid = new QWidget(); 
+  QVBoxLayout *props = new QVBoxLayout(propWid);
+  propWid->setLayout(props);
+
+  props->addWidget(objListTxt); 
+  props->addWidget(objList);
+  props->addWidget(propText);
+  props->addWidget(toolBox);
+  
+  
+  //props->addWidget(propWid);
+  mainDisp->addWidget(propWid);
+
+
+  mainWindow.setCentralWidget(widget);
 
 
   mainWindow.show();
