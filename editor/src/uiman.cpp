@@ -15,13 +15,13 @@ void UIMan::initUI() {
   /*
     Main toolbar
   */
-  QToolBar* toolbar = new QToolBar("Main Toolbar", &mainWindow);
+  toolbar = new QToolBar("Main Toolbar", &mainWindow);
   mainWindow.addToolBar(Qt::TopToolBarArea, toolbar);
 
-  QAction* newAction = new QAction("New", toolbar);
-  QAction* openAction = new QAction("Open", toolbar);
-  QAction* saveAction = new QAction("Save", toolbar);
-  QAction* exitAction = new QAction("Exit", toolbar);
+  newAction = new QAction("New", toolbar);
+  openAction = new QAction("Open", toolbar);
+  saveAction = new QAction("Save", toolbar);
+  exitAction = new QAction("Exit", toolbar);
 
   connect(newAction, SIGNAL(triggered()), internalEngine, SLOT(newScene()));
   connect(openAction, SIGNAL(triggered()), internalEngine, SLOT(openScene()));
@@ -38,13 +38,13 @@ void UIMan::initUI() {
   */
 
   // Scene view
-  QGraphicsScene* scene = new QGraphicsScene();
+  scene = new QGraphicsScene();
   scene->addText("No file loaded.");
 
-  QGraphicsView* view = new QGraphicsView(scene);
+  view = new QGraphicsView(scene);
 
-  QWidget *widget = new QWidget();
-  QHBoxLayout *mainDisp = new QHBoxLayout(widget);
+  widget = new QWidget();
+  mainDisp = new QHBoxLayout(widget);
   widget->setLayout(mainDisp);
 
   // Add scene view
@@ -54,22 +54,22 @@ void UIMan::initUI() {
   
 
   // Create "object list" text
-  QLabel *objListTxt = new QLabel("Object list:");
+  objListTxt = new QLabel("Object list:");
   // Create object list
-  QListView *objList = new QListView();
+  objList = new QListWidget();
   // Create properties text
-  QLabel *propText = new QLabel("Selected object properties:");
+  propText = new QLabel("Selected object properties:");
   // Create properties toolbox
-  QToolBox *toolBox = new QToolBox();
+  toolBox = new QToolBox();
   // Add things to toolbox
-  QWidget *generalPage = new QWidget();
-  QWidget *transformPage = new QWidget();
+  generalPage = new QWidget();
+  transformPage = new QWidget();
   
   toolBox->addItem(generalPage, "General");
   toolBox->addItem(transformPage, "Transform");
 
-  QWidget *propWid = new QWidget(); 
-  QVBoxLayout *props = new QVBoxLayout(propWid);
+  propWid = new QWidget(); 
+  props = new QVBoxLayout(propWid);
   propWid->setLayout(props);
 
   props->addWidget(objListTxt); 
@@ -90,4 +90,18 @@ void UIMan::initUI() {
 
 int UIMan::run() {
   return app->exec();
+}
+
+
+void UIMan::addObject(Object* obj){
+  objVec.push_back(obj);
+  updateListView();
+}
+
+
+void UIMan::updateListView(){
+  for(auto& item : objVec){
+    item->setText(tr(item->type.c_str()));
+    objList->addItem(item);
+  }
 }

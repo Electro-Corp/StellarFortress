@@ -1,10 +1,18 @@
 #ifndef INTERNAL_H
 #define INTERNAL_H
 
+#include "uiman.h"
+#include "jsonReader.h"
+#include "object.h"
+
 #include <QObject>
+#include <QFileDialog>
 
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
+
+class UIMan;
 
 class InternalEngine : public QObject
 {
@@ -12,6 +20,8 @@ class InternalEngine : public QObject
 
 public:
     explicit InternalEngine(QObject *parent = nullptr);
+
+    UIMan* uiMan;
 
 public Q_SLOTS:
     void newScene();

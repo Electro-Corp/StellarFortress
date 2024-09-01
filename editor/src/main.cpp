@@ -9,6 +9,7 @@ int main(int argc, char** argv) {
   InternalEngine* internalEngine = new InternalEngine();
 
   UIMan man(&app, internalEngine);
+  internalEngine->uiMan = &man;
   man.initUI();
 
   return man.run();
