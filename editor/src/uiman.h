@@ -3,6 +3,7 @@
 
 #include "internal.h"
 #include "object.h"
+#include "GraphicsView.h"
 
 #include <QPushButton>
 #include <QPalette>
@@ -45,7 +46,7 @@ private:
 
   // Disp area
   QGraphicsScene* scene;
-  QGraphicsView* view;
+  ZoomGraphicsView* view;
   QWidget* widget;
   QHBoxLayout* mainDisp;
   // Side bar

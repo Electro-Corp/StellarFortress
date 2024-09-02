@@ -44,7 +44,7 @@ void UIMan::initUI() {
   scene = new QGraphicsScene();
   scene->addText("No file loaded.");
 
-  view = new QGraphicsView(scene);
+  view = new ZoomGraphicsView(scene);
 
   widget = new QWidget();
   mainDisp = new QHBoxLayout(widget);
