@@ -20,9 +20,11 @@
 #include <QLabel>
 #include <QListView>
 #include <QImage>
+#include <QMessageBox>
 #include <QGraphicsPixmapItem>
 
 #include <vector>
+#include <cmath>
 
 class InternalEngine;
 
@@ -38,6 +40,7 @@ private:
   QAction* newAction;
   QAction* openAction;
   QAction* saveAction;
+  QAction* aboutAction;
   QAction* exitAction;
 
   // Disp area
@@ -57,6 +60,7 @@ private:
   QWidget *generalPage;
   // generalPage stuff
   QVBoxLayout *generalPageLayout;
+  QPushButton* setVisible;
   QLabel *objType;
   QLabel *scriptLabel;
 
@@ -76,6 +80,8 @@ private:
   QVBoxLayout *props;
 
   std::vector<Object*> objVec;
+
+  Object* selObj;
 public:
   explicit UIMan(QApplication* a, InternalEngine* i);
 
@@ -85,11 +91,16 @@ public:
 
   void addObject(Object* obj);
 
+  
+
   void updateListView();
+  void updateGraphics();
   void clearEditorForNewFile();
 
 public Q_SLOTS:
   void changeItem(QListWidgetItem*, QListWidgetItem*);
+  void toggleObjectVisibility();
+  void aboutPanel();
 };
 
 #endif

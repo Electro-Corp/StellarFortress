@@ -21,16 +21,19 @@ void UIMan::initUI() {
   newAction = new QAction("New", toolbar);
   openAction = new QAction("Open", toolbar);
   saveAction = new QAction("Save", toolbar);
+  aboutAction = new QAction("About", toolbar);
   exitAction = new QAction("Exit", toolbar);
 
   connect(newAction, SIGNAL(triggered()), internalEngine, SLOT(newScene()));
   connect(openAction, SIGNAL(triggered()), internalEngine, SLOT(openScene()));
   connect(saveAction, SIGNAL(triggered()), internalEngine, SLOT(saveScene()));
   connect(exitAction, SIGNAL(triggered()), internalEngine, SLOT(exitEditor()));
+  connect(aboutAction, SIGNAL(triggered()), this, SLOT(aboutPanel()));
 
   toolbar->addAction(newAction);
   toolbar->addAction(openAction);
   toolbar->addAction(saveAction);
+  toolbar->addAction(aboutAction);
   toolbar->addAction(exitAction);
 
   /*
@@ -65,9 +68,13 @@ void UIMan::initUI() {
   // Add things to toolbox
   generalPage = new QWidget();
   generalPageLayout = new QVBoxLayout(generalPage);
+  setVisible = new QPushButton("Toggle visibility");
+  connect(setVisible, SIGNAL(clicked()), this, SLOT(toggleObjectVisibility()));
+
   objType = new QLabel("Object Type");
   scriptLabel = new QLabel("Script path");
 
+  generalPageLayout->addWidget(setVisible);
   generalPageLayout->addWidget(objType);
   generalPageLayout->addWidget(scriptLabel); 
 
@@ -127,15 +134,35 @@ void UIMan::addObject(Object* obj){
   updateListView();
 
   // Load into view
-  if(obj->spritePath.size() > 0){
-    QImage image(obj->spritePath.c_str());
-    QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
-    item->setPos(0 , 0);
-    item->setScale(0.4);
-    scene->addItem(item);
+  updateGraphics();
+}
+
+void UIMan::toggleObjectVisibility(){
+  if(selObj){
+    printf("Toggling visibility %s\n", selObj->script.c_str());
+    selObj->visibility = !(selObj->visibility);
+    updateGraphics();
   }
 }
 
+void UIMan::updateGraphics(){
+  scene->clear();
+  for(auto& obj : objVec){
+    if(obj->spritePath.size() > 0 && obj->visibility){
+      QImage image(obj->spritePath.c_str());
+      if(image.isNull()){
+        printf("%s is null!\n", obj->spritePath.c_str());
+      }else{
+        printf("%s is here\n", obj->spritePath.c_str());
+      }
+      float normX = ((obj->transform.scale.x) / 800) * 800; 
+      float normY = ((obj->transform.scale.y) / 600) * 800; 
+      QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image.scaled(QSize(normX, normY))));
+      item->setPos(obj->transform.position.x - 800, obj->transform.position.y - 600);
+      scene->addItem(item);
+    }
+  }
+}
 
 void UIMan::updateListView(){
   for(auto& item : objVec){
@@ -152,6 +179,7 @@ void UIMan::clearEditorForNewFile(){
 
 void UIMan::changeItem(QListWidgetItem* c, QListWidgetItem* prev){
   Object* selObj = (Object*)c;
+  this->selObj = selObj;
 
   objType->setText(tr(selObj->objectClass.c_str()));
   scriptLabel->setText(tr(selObj->script.c_str()));
@@ -163,4 +191,10 @@ void UIMan::changeItem(QListWidgetItem* c, QListWidgetItem* prev){
   objScale->setText(tr(scaleText.c_str()));
 
   std::cout << "sel change, " << selObj->objectClass << "\n";
+}
+
+void UIMan::aboutPanel(){
+  QMessageBox* about = new QMessageBox();
+  about->setWindowTitle("About Mosaic Scene Editor");
+  about->about(about, "About Mosiac Scene Editor", "An open source editor for Mosiac Scene JSON files.\nFor use with games that use the Mosiac Engine.\n");
 }

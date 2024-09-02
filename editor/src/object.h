@@ -13,6 +13,8 @@ public:
     std::string objectClass;
     std::vector<std::string> args;
 
+    bool visibility = true;
+
     // GameOBJ specfic stuff
 
     // Base gameObj
