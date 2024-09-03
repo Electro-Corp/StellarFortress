@@ -141,7 +141,7 @@ void UIMan::initUI() {
   scriptList = new QListWidget();
   connect(scriptList, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(changeScript(QListWidgetItem*, QListWidgetItem*)));
 
-  scriptWid = new QWidget(scriptWid);
+  scriptWid = new QWidget();
   scriptSide = new QVBoxLayout(scriptWid);
 
   scriptSide->addWidget(scriptToolbar);
