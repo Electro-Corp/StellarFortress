@@ -13,36 +13,28 @@ class ZoomGraphicsView : public QGraphicsView
 
 public:
     explicit ZoomGraphicsView(QWidget *parent = nullptr)
-        : QGraphicsView(parent), isPanning(false) {}
+        : QGraphicsView(parent), isPanning(false) {
+        setTransformationAnchor(AnchorUnderMouse);
+    }
 
     ZoomGraphicsView(QGraphicsScene *scene, QWidget *parent = nullptr)
-        : QGraphicsView(scene, parent), isPanning(false) {}
+        : QGraphicsView(scene, parent), isPanning(false) {
+        setTransformationAnchor(AnchorUnderMouse);
+    }
 
 protected:
-    void wheelEvent(QWheelEvent *event) override
-    {
+    void wheelEvent(QWheelEvent *event) override {
         qreal zoomFactor = 1.2;
         if (event->delta() < 0)
             zoomFactor = 1.0 / zoomFactor;
 
-        
-        QPointF mouseScenePos = mapToScene(event->pos());
-
         scale(zoomFactor, zoomFactor);
-
-        QPointF newMouseScenePos = mapToScene(event->pos());
-
-        QPointF offset = mouseScenePos - newMouseScenePos;
-
-        translate(offset.x(), offset.y());
 
         QGraphicsView::wheelEvent(event);
     }
 
-    void mousePressEvent(QMouseEvent *event) override
-    {
-        if (event->button() == Qt::LeftButton)
-        {
+    void mousePressEvent(QMouseEvent *event) override {
+        if (event->button() == Qt::LeftButton) {
             isPanning = true;
             lastMousePos = event->pos();
             setCursor(Qt::ClosedHandCursor);
@@ -50,18 +42,10 @@ protected:
         QGraphicsView::mousePressEvent(event);
     }
 
-    void mouseMoveEvent(QMouseEvent *event) override
-    {
-        if (isPanning)
-        {
+    void mouseMoveEvent(QMouseEvent *event) override {
+        if (isPanning) {
             QPointF delta = mapToScene(lastMousePos) - mapToScene(event->pos());
-
-            QTransform transform = this->transform();
-
-            transform.translate(delta.x(), delta.y());
-
-            this->setTransform(transform);
-
+            translate(delta.x(), delta.y());
             lastMousePos = event->pos();
         }
         QGraphicsView::mouseMoveEvent(event);
@@ -69,8 +53,7 @@ protected:
 
     void mouseReleaseEvent(QMouseEvent *event) override
     {
-        if (event->button() == Qt::LeftButton)
-        {
+        if (event->button() == Qt::LeftButton) {
             isPanning = false;
             unsetCursor();
         }
