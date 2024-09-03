@@ -60,6 +60,13 @@ void UIMan::initUI() {
 
   // Properties 
   
+  sceneToolbar = new QToolBar("Scene Tollbar", &mainWindow);
+  
+  newObject = new QAction("New Object", sceneToolbar);
+
+  connect(newObject, SIGNAL(triggered()), this, SLOT(addObject()));
+
+  sceneToolbar->addAction(newObject);
 
   // Create "object list" text
   objListTxt = new QLabel("Object list:");
@@ -109,6 +116,7 @@ void UIMan::initUI() {
   props = new QVBoxLayout(propWid);
   propWid->setLayout(props);
 
+  props->addWidget(sceneToolbar);
   props->addWidget(objListTxt); 
   props->addWidget(objList);
   props->addWidget(propText);
@@ -121,19 +129,30 @@ void UIMan::initUI() {
   scripting = new QWidget();
   sceneDisp = new QHBoxLayout(scripting);
 
+  scriptToolbar = new QToolBar("Script Toolbar", &mainWindow);
+  
+  saveScript = new QAction("Save Script", scriptToolbar);
+
+  connect(saveScript, SIGNAL(triggered()), this, SLOT(saveCurScript()));
+
+  scriptToolbar->addAction(saveScript);
+
   scriptEdit = new QTextEdit();
   scriptList = new QListWidget();
   connect(scriptList, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(changeScript(QListWidgetItem*, QListWidgetItem*)));
 
+  scriptWid = new QWidget(scriptWid);
+  scriptSide = new QVBoxLayout(scriptWid);
 
+  scriptSide->addWidget(scriptToolbar);
   sceneDisp->addWidget(scriptEdit);
-  sceneDisp->addWidget(scriptList);
+  scriptSide->addWidget(scriptList);
+
+  sceneDisp->addWidget(scriptWid);
 
   tabs->addTab(scripting, tr("Scripts"));
 
   
-
-
   mainWindow.setCentralWidget(tabs);
 
 
@@ -168,6 +187,26 @@ void UIMan::toggleObjectVisibility(){
 void UIMan::updateGraphics(){
   scene->clear();
   for(auto& obj : objVec){
+    if(obj->objectClass == "UI::Text"){
+      QGraphicsTextItem* txt = new QGraphicsTextItem(tr(obj->caption.c_str()));
+
+      txt->setPos(obj->transform.position.x - 800, obj->transform.position.y - 600);
+    
+      float normX = ((obj->transform.scale.x) / 800) * 800; 
+      float normY = ((obj->transform.scale.y) / 600) * 800;
+
+      // Size
+      QSize newSize(normX, normY);
+      QRectF boundingRect = txt->boundingRect();
+      qreal scaleX = newSize.width() / boundingRect.width();
+      qreal scaleY = newSize.height() / boundingRect.height();
+      qreal scale = qMin(scaleX, scaleY);
+      txt->setTransform(QTransform::fromScale(scale, scale));
+
+      txt->setDefaultTextColor(QColor(obj->rgb, obj->rgb, obj->rgb));
+
+      scene->addItem(txt);
+    }
     if(obj->spritePath.size() > 0 && obj->visibility){
       QImage image(obj->spritePath.c_str());
       if(image.isNull()){
@@ -189,44 +228,58 @@ void UIMan::updateListView(){
     item->setText(tr(item->objectClass.c_str()));
     objList->addItem(item);
 
-    item->scriptItem->setText(tr(item->script.c_str()));
+    if(item->scriptItem){
+      item->scriptItem->setText(tr(item->script.c_str()));
+    }
     scriptList->addItem(item->scriptItem);
   }
 }
 
 void UIMan::clearEditorForNewFile(){
-  scene->clear();
   objList->clear();
+  scriptList->clear();
+  scene->clear();
   objVec.clear();
 }
 
 void UIMan::changeItem(QListWidgetItem* c, QListWidgetItem* prev){
-  Object* selObj = (Object*)c;
-  this->selObj = selObj;
+  if(c){
+    Object* selObj = (Object*)c;
+    this->selObj = selObj;
 
-  objType->setText(tr(selObj->objectClass.c_str()));
-  scriptLabel->setText(tr(selObj->script.c_str()));
+    objType->setText(tr(selObj->objectClass.c_str()));
+    scriptLabel->setText(tr(selObj->script.c_str()));
 
-  std::string posText(std::string{"Position: (" + std::to_string(selObj->transform.position.x) + ", "+std::to_string(selObj->transform.position.y) + ")"});
-  objPosition->setText(tr(posText.c_str()));
+    std::string posText(std::string{"Position: (" + std::to_string(selObj->transform.position.x) + ", "+std::to_string(selObj->transform.position.y) + ")"});
+    objPosition->setText(tr(posText.c_str()));
 
-  std::string scaleText(std::string{"Scale: (" + std::to_string(selObj->transform.scale.x) + ", "+std::to_string(selObj->transform.scale.y) + ")"});
-  objScale->setText(tr(scaleText.c_str()));
+    std::string scaleText(std::string{"Scale: (" + std::to_string(selObj->transform.scale.x) + ", "+std::to_string(selObj->transform.scale.y) + ")"});
+    objScale->setText(tr(scaleText.c_str()));
 
-  std::cout << "sel change, " << selObj->objectClass << "\n";
+    std::cout << "sel change, " << selObj->objectClass << "\n";
+  }
 }
 
 void UIMan::changeScript(QListWidgetItem* c, QListWidgetItem* prev){
-  Script* selScript = (Script*)c;
-  this->selScript = selScript;
+  if(c){
+    Script* selScript = (Script*)c;
+    this->selScript = selScript;
 
 
-  scriptEdit->setText(tr(selScript->fileText.c_str()));
-
+    scriptEdit->setText(tr(selScript->fileText.c_str()));
+  }
 }
 
 void UIMan::aboutPanel(){
   QMessageBox* about = new QMessageBox();
   about->setWindowTitle("About Mosaic Scene Editor");
   about->about(about, "About Mosiac Scene Editor", "An open source editor for Mosiac Scene JSON files.\nFor use with games that use the Mosiac Engine.\n");
+}
+
+void UIMan::addObject(){
+
+}
+
+void UIMan::saveCurScript(){
+
 }

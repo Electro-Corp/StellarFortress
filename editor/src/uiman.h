@@ -25,6 +25,9 @@
 #include <QGraphicsPixmapItem>
 #include <QTabWidget>
 #include <QTextEdit>
+#include <QGraphicsTextItem>
+#include <QTransform>
+#include <QColor>
 
 #include <vector>
 #include <cmath>
@@ -54,6 +57,11 @@ private:
   ZoomGraphicsView* view;
   QWidget* widget;
   QHBoxLayout* mainDisp;
+
+  // Scene toolbar
+  QToolBar* sceneToolbar;
+  QAction* newObject;
+
   // Side bar
   QLabel *objListTxt;
   // Create object li
@@ -89,6 +97,12 @@ private:
   QWidget* scripting;
   QHBoxLayout* sceneDisp;
 
+
+  QWidget* scriptWid;
+  QVBoxLayout *scriptSide;
+  QToolBar* scriptToolbar;
+  QAction* saveScript;
+
   QTextEdit* scriptEdit;
   QListWidget* scriptList;
 
@@ -117,6 +131,11 @@ public Q_SLOTS:
   void changeScript(QListWidgetItem*, QListWidgetItem*);
   void toggleObjectVisibility();
   void aboutPanel();
+
+  void addObject();
+
+  void saveCurScript();
+
 };
 
 #endif
