@@ -23,6 +23,8 @@
 #include <QImage>
 #include <QMessageBox>
 #include <QGraphicsPixmapItem>
+#include <QTabWidget>
+#include <QTextEdit>
 
 #include <vector>
 #include <cmath>
@@ -43,6 +45,9 @@ private:
   QAction* saveAction;
   QAction* aboutAction;
   QAction* exitAction;
+
+  QTabWidget *tabs;
+
 
   // Disp area
   QGraphicsScene* scene;
@@ -80,9 +85,18 @@ private:
   QWidget *propWid;
   QVBoxLayout *props;
 
+  // Scripting area
+  QWidget* scripting;
+  QHBoxLayout* sceneDisp;
+
+  QTextEdit* scriptEdit;
+  QListWidget* scriptList;
+
+
   std::vector<Object*> objVec;
 
   Object* selObj;
+  Script* selScript;
 public:
   explicit UIMan(QApplication* a, InternalEngine* i);
 
@@ -100,6 +114,7 @@ public:
 
 public Q_SLOTS:
   void changeItem(QListWidgetItem*, QListWidgetItem*);
+  void changeScript(QListWidgetItem*, QListWidgetItem*);
   void toggleObjectVisibility();
   void aboutPanel();
 };

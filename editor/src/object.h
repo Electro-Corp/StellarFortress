@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include "transform.h"
+#include "script.h"
 
 #include <QListWidgetItem>
 
@@ -21,6 +22,7 @@ public:
     Transform transform;
     std::string spritePath;
     std::string script;
+    Script* scriptItem;
 
     // Text
     std::string caption;
@@ -29,6 +31,10 @@ public:
     // nothing to see here...
 
     void setStuff(){
+        if(script != "NONE"){
+            printf("Loading script %s\n", script.c_str());
+            scriptItem = new Script(std::string{"../" + script});
+        }
         if(objectClass == "Engine::GameObject"){
             this->spritePath = std::string{"../" + args[0]};
         }else if(objectClass == "UI::Text"){

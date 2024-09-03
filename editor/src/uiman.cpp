@@ -40,6 +40,8 @@ void UIMan::initUI() {
     Main display area
   */
 
+  tabs = new QTabWidget;
+
   // Scene view
   scene = new QGraphicsScene();
   scene->addText("No file loaded.");
@@ -52,6 +54,9 @@ void UIMan::initUI() {
 
   // Add scene view
   mainDisp->addWidget(view);
+
+  tabs->addTab(widget, tr("Scene View"));
+
 
   // Properties 
   
@@ -113,8 +118,23 @@ void UIMan::initUI() {
   //props->addWidget(propWid);
   mainDisp->addWidget(propWid);
 
+  scripting = new QWidget();
+  sceneDisp = new QHBoxLayout(scripting);
 
-  mainWindow.setCentralWidget(widget);
+  scriptEdit = new QTextEdit();
+  scriptList = new QListWidget();
+  connect(scriptList, SIGNAL(currentItemChanged(QListWidgetItem*, QListWidgetItem*)), this, SLOT(changeScript(QListWidgetItem*, QListWidgetItem*)));
+
+
+  sceneDisp->addWidget(scriptEdit);
+  sceneDisp->addWidget(scriptList);
+
+  tabs->addTab(scripting, tr("Scripts"));
+
+  
+
+
+  mainWindow.setCentralWidget(tabs);
 
 
   mainWindow.show();
@@ -168,6 +188,9 @@ void UIMan::updateListView(){
   for(auto& item : objVec){
     item->setText(tr(item->objectClass.c_str()));
     objList->addItem(item);
+
+    item->scriptItem->setText(tr(item->script.c_str()));
+    scriptList->addItem(item->scriptItem);
   }
 }
 
@@ -191,6 +214,15 @@ void UIMan::changeItem(QListWidgetItem* c, QListWidgetItem* prev){
   objScale->setText(tr(scaleText.c_str()));
 
   std::cout << "sel change, " << selObj->objectClass << "\n";
+}
+
+void UIMan::changeScript(QListWidgetItem* c, QListWidgetItem* prev){
+  Script* selScript = (Script*)c;
+  this->selScript = selScript;
+
+
+  scriptEdit->setText(tr(selScript->fileText.c_str()));
+
 }
 
 void UIMan::aboutPanel(){
