@@ -6,11 +6,13 @@ void newFile(){
 }
 
 UIMan::UIMan(QApplication* a, InternalEngine* i) : app(a), internalEngine(i) {
+
 }
 
 void UIMan::initUI() {
   mainWindow.resize(640, 480);
   mainWindow.setWindowTitle("Mosaic Scene Editor v0.1 | No file loaded");
+
 
   /*
     Main toolbar
@@ -63,10 +65,13 @@ void UIMan::initUI() {
   sceneToolbar = new QToolBar("Scene Tollbar", &mainWindow);
   
   newObject = new QAction("New Object", sceneToolbar);
+  delObject = new QAction("Delete Object", sceneToolbar);
 
   connect(newObject, SIGNAL(triggered()), this, SLOT(addObject()));
+  connect(delObject, SIGNAL(triggered()), this, SLOT(deleteObject()));
 
   sceneToolbar->addAction(newObject);
+  sceneToolbar->addAction(delObject);
 
   // Create "object list" text
   objListTxt = new QLabel("Object list:");
@@ -187,38 +192,40 @@ void UIMan::toggleObjectVisibility(){
 void UIMan::updateGraphics(){
   scene->clear();
   for(auto& obj : objVec){
-    if(obj->objectClass == "UI::Text"){
-      QGraphicsTextItem* txt = new QGraphicsTextItem(tr(obj->caption.c_str()));
+    if(obj->visibility){
+      if(obj->objectClass == "UI::Text"){
+        QGraphicsTextItem* txt = new QGraphicsTextItem(tr(obj->caption.c_str()));
 
-      txt->setPos(obj->transform.position.x - 800, obj->transform.position.y - 600);
-    
-      float normX = ((obj->transform.scale.x) / 800) * 800; 
-      float normY = ((obj->transform.scale.y) / 600) * 800;
+        txt->setPos(obj->transform.position.x - 800, obj->transform.position.y - 600);
+      
+        float normX = ((obj->transform.scale.x) / 800) * 800; 
+        float normY = ((obj->transform.scale.y) / 600) * 800;
 
-      // Size
-      QSize newSize(normX, normY);
-      QRectF boundingRect = txt->boundingRect();
-      qreal scaleX = newSize.width() / boundingRect.width();
-      qreal scaleY = newSize.height() / boundingRect.height();
-      qreal scale = qMin(scaleX, scaleY);
-      txt->setTransform(QTransform::fromScale(scale, scale));
+        // Size
+        QSize newSize(normX, normY);
+        QRectF boundingRect = txt->boundingRect();
+        qreal scaleX = newSize.width() / boundingRect.width();
+        qreal scaleY = newSize.height() / boundingRect.height();
+        qreal scale = qMin(scaleX, scaleY);
+        txt->setTransform(QTransform::fromScale(scale, scale));
 
-      txt->setDefaultTextColor(QColor(obj->rgb, obj->rgb, obj->rgb));
+        txt->setDefaultTextColor(QColor(obj->rgb, obj->rgb, obj->rgb));
 
-      scene->addItem(txt);
-    }
-    if(obj->spritePath.size() > 0 && obj->visibility){
-      QImage image(obj->spritePath.c_str());
-      if(image.isNull()){
-        printf("%s is null!\n", obj->spritePath.c_str());
-      }else{
-        printf("%s is here\n", obj->spritePath.c_str());
+        scene->addItem(txt);
       }
-      float normX = ((obj->transform.scale.x) / 800) * 800; 
-      float normY = ((obj->transform.scale.y) / 600) * 800; 
-      QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image.scaled(QSize(normX, normY))));
-      item->setPos(obj->transform.position.x - 800, obj->transform.position.y - 600);
-      scene->addItem(item);
+      if(obj->spritePath.size() > 0){
+        QImage image(obj->spritePath.c_str());
+        if(image.isNull()){
+          printf("%s is null!\n", obj->spritePath.c_str());
+        }else{
+          printf("%s is here\n", obj->spritePath.c_str());
+        }
+        float normX = ((obj->transform.scale.x) / 800) * 800; 
+        float normY = ((obj->transform.scale.y) / 600) * 800; 
+        QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image.scaled(QSize(normX, normY))));
+        item->setPos(obj->transform.position.x - 800, obj->transform.position.y - 600);
+        scene->addItem(item);
+      } 
     }
   }
 }
@@ -277,6 +284,10 @@ void UIMan::aboutPanel(){
 }
 
 void UIMan::addObject(){
+
+}
+
+void UIMan::deleteObject(){
 
 }
 

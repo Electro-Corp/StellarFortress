@@ -22,7 +22,7 @@ static const uint qt_meta_data_UIMan[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -36,6 +36,7 @@ static const uint qt_meta_data_UIMan[] = {
      128,    6,    6,    6, 0x0a,
      141,    6,    6,    6, 0x0a,
      153,    6,    6,    6, 0x0a,
+     168,    6,    6,    6, 0x0a,
 
        0        // eod
 };
@@ -44,7 +45,7 @@ static const char qt_meta_stringdata_UIMan[] = {
     "UIMan\0\0,\0changeItem(QListWidgetItem*,QListWidgetItem*)\0"
     "changeScript(QListWidgetItem*,QListWidgetItem*)\0"
     "toggleObjectVisibility()\0aboutPanel()\0"
-    "addObject()\0saveCurScript()\0"
+    "addObject()\0deleteObject()\0saveCurScript()\0"
 };
 
 void UIMan::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -58,7 +59,8 @@ void UIMan::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void 
         case 2: _t->toggleObjectVisibility(); break;
         case 3: _t->aboutPanel(); break;
         case 4: _t->addObject(); break;
-        case 5: _t->saveCurScript(); break;
+        case 5: _t->deleteObject(); break;
+        case 6: _t->saveCurScript(); break;
         default: ;
         }
     }
@@ -96,9 +98,9 @@ int UIMan::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

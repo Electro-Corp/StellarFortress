@@ -28,6 +28,7 @@
 #include <QGraphicsTextItem>
 #include <QTransform>
 #include <QColor>
+#include <QStyleFactory>
 
 #include <vector>
 #include <cmath>
@@ -61,6 +62,7 @@ private:
   // Scene toolbar
   QToolBar* sceneToolbar;
   QAction* newObject;
+  QAction* delObject;
 
   // Side bar
   QLabel *objListTxt;
@@ -133,6 +135,7 @@ public Q_SLOTS:
   void aboutPanel();
 
   void addObject();
+  void deleteObject();
 
   void saveCurScript();
 
