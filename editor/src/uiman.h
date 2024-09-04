@@ -42,6 +42,10 @@ private:
   QMainWindow mainWindow; 
   InternalEngine* internalEngine;
 
+  // The rest of this file is terrifying
+  // i really should make functions to create these
+  // but that takes effort
+
   // Main toolbar
   QToolBar* toolbar;
   QAction* newAction;

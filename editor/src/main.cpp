@@ -20,7 +20,10 @@ int main(int argc, char** argv) {
   newArgv[args.size()] = nullptr;
 
   int argcount = args.size();
+
   QApplication app(argcount, newArgv);
+
+  app.setWindowIcon(QIcon("../assets/icon.jpg"));
 
   
   InternalEngine* internalEngine = new InternalEngine();

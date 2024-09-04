@@ -11,7 +11,7 @@ UIMan::UIMan(QApplication* a, InternalEngine* i) : app(a), internalEngine(i) {
 
 void UIMan::initUI() {
   mainWindow.resize(640, 480);
-  mainWindow.setWindowTitle("Mosaic Scene Editor v0.1 | No file loaded");
+  mainWindow.setWindowTitle("Mosaic Editor v0.1 | No file loaded");
 
 
   /*
@@ -279,8 +279,8 @@ void UIMan::changeScript(QListWidgetItem* c, QListWidgetItem* prev){
 
 void UIMan::aboutPanel(){
   QMessageBox* about = new QMessageBox();
-  about->setWindowTitle("About Mosaic Scene Editor");
-  about->about(about, "About Mosiac Scene Editor", "An open source editor for Mosiac Scene JSON files.\nFor use with games that use the Mosiac Engine.\n");
+  about->setWindowTitle("About Mosaic Editor");
+  about->about(about, "About Mosiac Editor", "An open source editor for Mosiac Scene JSON files, and Lua scripts.\nFor use with games that use the Mosiac Engine.\nOffcially supported games:\n > Stellar Fortress");
 }
 
 void UIMan::addObject(){
